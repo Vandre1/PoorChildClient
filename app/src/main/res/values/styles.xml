@@ -1,0 +1,40 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+    </style>
+
+    <style name="simpleTextView" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <style name="headerTextView" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorPrimary</item>
+    </style>
+
+    <style name="accentTextView" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="hintTextView" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/colorAccent</item>
+    </style>
+
+    <style name="simpleEditText" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/colorText</item>
+    </style>
+
+    <style name="accentStatusTextView" parent="@android:style/TextAppearance.Small">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AppProgressDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowBackground">@color/colorText</item>
+    </style>
+</resources>
