@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
         JSONObject childDeviceObject = new JSONObject();
 
         try {
-            childDeviceObject.put("AndroidId", Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
+            childDeviceObject.put("AndroidId", PreferenceHelper.getAndroidId(this));
         } catch (JSONException e) {
             e.printStackTrace();
             ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Не удалось добавить устройство. Перезапустите программу. Если это не поможет, переустановите ее.");
@@ -133,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         JSONObject parentDeviceObject = new JSONObject();
 
         try {
-            parentDeviceObject.put("AndroidId", Settings.Secure.getString(this.getContentResolver(), Settings.Secure.ANDROID_ID));
+            parentDeviceObject.put("AndroidId", PreferenceHelper.getAndroidId(this));
         } catch (JSONException e) {
             e.printStackTrace();
             ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Не удалось добавить устройство. Перезапустите программу. Если это не поможет, переустановите ее.");
