@@ -1,6 +1,8 @@
 package com.avorobyev.poorchild.Test;
 
 public class TestData {
+    public static String NotRegisteredAndroidId = "dfca3d538e561b12";
+
     public static String Child1AndroId = "dfca3d538e561ba3";
     public static String Child2AndroId = "dfca3d538e561ba4";
     public static String Child3AndroId = "dfca3d538e561ba5";

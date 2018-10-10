@@ -77,8 +77,5 @@ public class ListOfWorksActivity extends AppCompatActivity {
                 ListOfWorksActivity.this.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
             }
         });
-
-
-
     }
 }

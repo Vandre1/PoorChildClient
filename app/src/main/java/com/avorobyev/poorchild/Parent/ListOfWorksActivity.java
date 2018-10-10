@@ -30,7 +30,7 @@ public class ListOfWorksActivity extends AppCompatActivity {
     }
 
     protected void DisplayWorks() {
-        ArrayList<com.avorobyev.poorchild.Model.Work> works = new ArrayList<>();
+        ArrayList<Work> works = new ArrayList<>();
         works.add(new Work("Помыть посуду", "Хорошо помыть посуду"));
         works.add(new Work("Подмести пол", "Перед этим обязательно подмести"));
 

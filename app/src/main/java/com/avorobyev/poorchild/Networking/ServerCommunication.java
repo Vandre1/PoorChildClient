@@ -29,8 +29,8 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 public class ServerCommunication {
-    public static String SERVER_URL2 = "http://172.16.1.117/PoorChild.Web/api/";
-    public static String SERVER_URL = "http://192.168.123.12/PoorChild.Web/api/";
+    public static String SERVER_URL = "http://172.16.1.117/PoorChild.Web/api/";
+    public static String SERVER_URL2 = "http://192.168.123.12/PoorChild.Web/api/";
 
     public static void LoadWorks(final AppCompatActivity activity, String childDeviceId, final ProgressBar progressBar, final LoadWorksResultListener resultListener) {
         RequestQueue requestQueue = Volley.newRequestQueue(activity.getApplicationContext());

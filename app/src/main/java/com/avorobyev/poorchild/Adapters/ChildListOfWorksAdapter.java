@@ -51,7 +51,6 @@ public class ChildListOfWorksAdapter extends RecyclerView.Adapter<ChildListOfWor
         // Databind self
         workNameTextView.setText(workForBind.Name);
         workDescriptionTextView.setText(workForBind.Description);
-        workCompletedButton.setText("Готово");
     }
 
     @Override
