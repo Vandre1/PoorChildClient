@@ -1,11 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.avorobyev.poorchild">
+    package="com.avorobyev.poorchild">
 
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
-    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!--
+    Allows Glide to monitor connectivity status and restart failed requests if users go from a
+    a disconnected to a connected network state.
+    -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -14,38 +22,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <service android:name=".Services.CloseOtherAppsService"/>
-        <service android:name=".Services.LockScreenService"/>
+        <service android:name=".Services.CloseOtherAppsService" />
+        <service android:name=".Services.LockScreenService" />
 
         <receiver
             android:name=".Receivers.BootCompletedReceiver"
             android:enabled="true"
             android:exported="false">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
         <activity android:name=".MainActivity">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
         <!-- Declaring broadcast receiver for BOOT_COMPLETED event. -->
 
-        <activity android:name=".Child.ListOfWorksActivity">
-        </activity>
-        <activity android:name=".Child.ViewDeviceCodeForAddToParentActivity">
-        </activity>
-        <activity android:name=".Parent.AddChildDeviceActivity">
-        </activity>
-        <activity android:name=".Parent.ListOfWorksActivity">
-        </activity>
-        <activity android:name=".Parent.AddWorkActivity">
-        </activity>
+        <activity android:name=".Child.ListOfWorksActivity"></activity>
+        <activity android:name=".Child.ViewDeviceCodeForAddToParentActivity"></activity>
+        <activity android:name=".Child.WorkDetailsActivity"></activity>
+        <activity android:name=".Parent.AddChildDeviceActivity"></activity>
+        <activity android:name=".Parent.ListOfWorksActivity"></activity>
+        <activity android:name=".Parent.AddWorkActivity"></activity>
     </application>
 
 </manifest>
