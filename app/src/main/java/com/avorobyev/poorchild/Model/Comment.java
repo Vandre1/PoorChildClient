@@ -9,17 +9,22 @@ import java.util.List;
 
 public class Comment {
     public Integer Id;
-    public String Message;
+    public String Text;
     public String DateTimeCreated;
 
-    public List<String> Photos;
+    public List<Photo> Photos;
 
-    public Comment(Integer id, String message, String dateTimeCreated) {
+    public Comment(String text) {
+        this.Text = text;
+        this.Photos = new ArrayList<Photo>();
+    }
+
+    public Comment(Integer id, String text, String dateTimeCreated) {
         this.Id = id;
         this.DateTimeCreated = dateTimeCreated;
-        this.Message = message;
+        this.Text = text;
 
-        this.Photos = new ArrayList<String>();
+        this.Photos = new ArrayList<Photo>();
     }
 
     public static Comment newInstance(JSONObject jsonObject) {
@@ -28,14 +33,15 @@ public class Comment {
 
             Comment comment = new Comment(
                     jsonObject.getInt("Id"),
-                    jsonObject.getString("Message"),
+                    jsonObject.getString("Text"),
                     dateTimeCreated);
 
             JSONArray photos = jsonObject.getJSONArray("Photos");
 
             for (Integer i = 0; i < photos.length(); i++) {
-                JSONObject photo = photos.getJSONObject(i);
-                comment.Photos.add(photo.getString("Url"));
+                JSONObject JSONPhoto = photos.getJSONObject(i);
+                Photo photo = Photo.newInstance(JSONPhoto);
+                comment.Photos.add(photo);
             }
 
             return comment;

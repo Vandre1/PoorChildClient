@@ -17,6 +17,9 @@ public class WorkDetailsActivity extends AppCompatActivity {
         progressBar = findViewById(R.id.progressBar);
 
         this.DisplayWork();
+
+        // chat realization example
+        // https://www.scaledrone.com/blog/android-chat-tutorial/
     }
 
     protected void DisplayWork() {
