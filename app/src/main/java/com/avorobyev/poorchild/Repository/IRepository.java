@@ -12,6 +12,8 @@ import com.avorobyev.poorchild.Networking.LoadCollectionResultListener;
 import com.avorobyev.poorchild.Networking.LoadItemResultListener;
 import com.avorobyev.poorchild.Networking.RequestResultListener;
 
+import java.util.Date;
+
 public interface IRepository {
     void GetChildrens(String parentId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<Children> resultListener);
     void GetChildren(String childrenId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Children> resultListener);
@@ -25,14 +27,13 @@ public interface IRepository {
 
     void GetTaskSchedules(String parentId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<TaskSchedule> resultListener);
     void GetTaskSchedule(String taskScheduleId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<TaskSchedule> resultListener);
-    void CreateTaskSchedule(TaskSchedule taskSchedule, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<TaskSchedule> resultListener);
+    void CreateTaskSchedule(TaskSchedule taskSchedule, String parentId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<TaskSchedule> resultListener);
     void EditTaskSchedule(TaskSchedule taskSchedule, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<TaskSchedule> resultListener);
     void DeleteTaskSchedule(String taskScheduleId, final ProgressBar progressBar, final Activity activity, final RequestResultListener resultListener);
 
     void GetChildrenTasks(String childrenId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<Task> resultListener);
     void GetParentTasks(String parentId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<Task> resultListener);
-    void GetTask(String taskScheduleId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Task> resultListener);
-    void EditTask(TaskSchedule taskSchedule, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Task> resultListener);
+    void GetTask(String taskId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Task> resultListener);
 
     void GetComments(String taskId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<Comment> resultListener);
     void GetComment(String commentId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Comment> resultListener);
@@ -40,6 +41,6 @@ public interface IRepository {
     void DeleteComment(String commentId, final ProgressBar progressBar, final Activity activity, final RequestResultListener resultListener);
 
     void GetPhotos(String commentId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<Photo> resultListener);
-    void GetPhoto(String PhotoId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Photo> resultListener);
-    void DeletePhoto(String PhotoId, final ProgressBar progressBar, final Activity activity, final RequestResultListener resultListener);
+    void GetPhoto(String photoId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Photo> resultListener);
+    void DeletePhoto(String photoId, final ProgressBar progressBar, final Activity activity, final RequestResultListener resultListener);
 }

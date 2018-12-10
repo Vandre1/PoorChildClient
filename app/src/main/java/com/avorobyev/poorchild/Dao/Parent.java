@@ -24,6 +24,8 @@ public class Parent {
         this.LastName = lastName;
 
         this.Childrens = new ArrayList<>();
+        this.TaskSchedules = new ArrayList<>();
+        this.Tasks = new ArrayList<>();
     }
 
     public Parent(String id, String firstName, String lastName, Date dateTimeCreated) {
@@ -33,6 +35,8 @@ public class Parent {
         this.DateTimeCreated = dateTimeCreated;
 
         this.Childrens = new ArrayList<>();
+        this.TaskSchedules = new ArrayList<>();
+        this.Tasks = new ArrayList<>();
     }
 
     public static Parent newInstance(com.avorobyev.poorchild.Model.Parent mParent) throws ParseException {

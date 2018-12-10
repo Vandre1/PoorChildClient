@@ -5,7 +5,9 @@ import org.json.JSONObject;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class Task {
     public String Id;
@@ -19,12 +21,15 @@ public class Task {
     public Integer TimeToStart;
     public Integer TimeToEnd;
 
+    public List<Comment> Comments;
 
     public Task(String name, String description, Integer timeToStart, Integer timeToEnd) {
         this.Name = name;
         this.Description = description;
         this.TimeToStart = timeToStart;
         this.TimeToEnd = timeToEnd;
+
+        this.Comments = new ArrayList<>();
     }
 
     public Task(String id, String name, String description, Integer timeToStart, Integer timeToEnd, Date dateTimeCreated, Date dateTimePendingConfirm, Date dateTimeConfirmed) {
@@ -36,6 +41,8 @@ public class Task {
         this.DateTimeConfirmed = dateTimeConfirmed;
         this.TimeToStart = timeToStart;
         this.TimeToEnd = timeToEnd;
+
+        this.Comments = new ArrayList<>();
     }
 
     public static Task newInstance(com.avorobyev.poorchild.Model.Task task) throws ParseException {

@@ -13,9 +13,11 @@ import com.avorobyev.poorchild.Networking.LoadCollectionResultListener;
 import com.avorobyev.poorchild.Networking.LoadItemResultListener;
 import com.avorobyev.poorchild.Networking.RequestResultListener;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
 
 public class LocalDataRepository implements IRepository {
 
@@ -190,81 +192,305 @@ public class LocalDataRepository implements IRepository {
 
     @Override
     public void GetTaskSchedules(String parentId, ProgressBar progressBar, Activity activity, LoadCollectionResultListener<TaskSchedule> resultListener) {
+        ArrayList<TaskSchedule> result = null;
 
+        for (Parent parent : this.parents) {
+            if (parent.Id == parentId) {
+                result = new ArrayList<>(parent.TaskSchedules.size());
+                result.addAll(parent.TaskSchedules);
+                break;
+            }
+        }
+
+        if (result == null) {
+            resultListener.LoadError(new Exception());
+        } else {
+            resultListener.LoadCompleted();
+            resultListener.LoadSuccess(result);
+        }
     }
 
     @Override
     public void GetTaskSchedule(String taskScheduleId, ProgressBar progressBar, Activity activity, LoadItemResultListener<TaskSchedule> resultListener) {
+        TaskSchedule result = null;
 
+        for (TaskSchedule taskSchedule : this.taskSchedules) {
+            if (taskSchedule.Id == taskScheduleId) {
+                result = taskSchedule;
+                break;
+            }
+        }
+
+        if (result == null) {
+            resultListener.LoadError(new Exception());
+        } else {
+            resultListener.LoadCompleted();
+            resultListener.LoadSuccess(result);
+        }
     }
 
     @Override
-    public void CreateTaskSchedule(TaskSchedule taskSchedule, ProgressBar progressBar, Activity activity, LoadItemResultListener<TaskSchedule> resultListener) {
+    public void CreateTaskSchedule(TaskSchedule taskSchedule, String parentId, ProgressBar progressBar, Activity activity, LoadItemResultListener<TaskSchedule> resultListener) {
+        for (Parent parent : this.parents) {
+            if (parent.Id == parentId) {
+                this.taskSchedules.add(taskSchedule);
+                parent.TaskSchedules.add(taskSchedule);
 
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(taskSchedule);
+
+                return;
+            }
+        }
+
+        resultListener.LoadError(new Exception());
     }
 
     @Override
     public void EditTaskSchedule(TaskSchedule taskSchedule, ProgressBar progressBar, Activity activity, LoadItemResultListener<TaskSchedule> resultListener) {
+        for (TaskSchedule currentTaskSchedule : this.taskSchedules) {
+            if (currentTaskSchedule.Id == taskSchedule.Id) {
+                currentTaskSchedule.DaysOfWeek = taskSchedule.DaysOfWeek;
+                currentTaskSchedule.Description = taskSchedule.Description;
+                currentTaskSchedule.Name = taskSchedule.Name;
+                currentTaskSchedule.TimeToEnd = taskSchedule.TimeToEnd;
+                currentTaskSchedule.TimeToStart = taskSchedule.TimeToStart;
 
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(currentTaskSchedule);
+
+                return;
+            }
+        }
+
+        resultListener.LoadError(new Exception());
     }
 
     @Override
     public void DeleteTaskSchedule(String taskScheduleId, ProgressBar progressBar, Activity activity, RequestResultListener resultListener) {
+        TaskSchedule taskSchedule = null;
+        Parent parent = null;
 
+        for (TaskSchedule currentTaskSchedule : this.taskSchedules) {
+            if (currentTaskSchedule.Id == taskScheduleId) {
+                taskSchedule = currentTaskSchedule;
+
+                break;
+            }
+        }
+
+        for (Parent currentParent : this.parents) {
+            for (TaskSchedule currentTaskSchedule : parent.TaskSchedules) {
+                if (currentTaskSchedule.Id == taskScheduleId) {
+                    parent = currentParent;
+
+                    break;
+                }
+            }
+        }
+
+        if (taskSchedule == null || parent == null) {
+            resultListener.RequestNotFound();
+            return;
+        }
+
+        this.taskSchedules.remove(taskSchedule);
+        parent.TaskSchedules.remove(taskSchedule);
+
+        resultListener.RequestCompleted();
+        resultListener.RequestSuccess();
     }
 
     @Override
     public void GetChildrenTasks(String childrenId, ProgressBar progressBar, Activity activity, LoadCollectionResultListener<Task> resultListener) {
+        for (Children children : this.childrens) {
+            if (children.Id == childrenId) {
+                ArrayList tasks = new ArrayList(children.Tasks);
 
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(tasks);
+
+                return;
+            }
+        }
+
+        resultListener.LoadError(new Exception());
     }
 
     @Override
     public void GetParentTasks(String parentId, ProgressBar progressBar, Activity activity, LoadCollectionResultListener<Task> resultListener) {
+        for (Parent parent : this.parents) {
+            if (parent.Id == parentId) {
+                ArrayList tasks = new ArrayList(parent.Tasks);
 
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(tasks);
+
+                return;
+            }
+        }
+
+        resultListener.LoadError(new Exception());
     }
 
     @Override
-    public void GetTask(String taskScheduleId, ProgressBar progressBar, Activity activity, LoadItemResultListener<Task> resultListener) {
+    public void GetTask(String taskId, ProgressBar progressBar, Activity activity, LoadItemResultListener<Task> resultListener) {
+        for (Task task : this.tasks) {
+            if (task.Id == taskId) {
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(task);
 
-    }
+                return;
+            }
+        }
 
-    @Override
-    public void EditTask(TaskSchedule taskSchedule, ProgressBar progressBar, Activity activity, LoadItemResultListener<Task> resultListener) {
-
+        resultListener.LoadError(new Exception());
     }
 
     @Override
     public void GetComments(String taskId, ProgressBar progressBar, Activity activity, LoadCollectionResultListener<Comment> resultListener) {
+        for (Task task : this.tasks) {
+            if (task.Id == taskId) {
+                ArrayList<Comment> comments = new ArrayList<>(task.Comments);
 
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(comments);
+
+                return;
+            }
+        }
+
+        resultListener.LoadError(new Exception());
     }
 
     @Override
     public void GetComment(String commentId, ProgressBar progressBar, Activity activity, LoadItemResultListener<Comment> resultListener) {
+        for (Comment comment : this.comments) {
+            if (comment.Id == commentId) {
 
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(comment);
+
+                return;
+            }
+        }
+
+        resultListener.LoadError(new Exception());
     }
 
     @Override
     public void EditComment(Comment comment, ProgressBar progressBar, Activity activity, LoadItemResultListener<Comment> resultListener) {
+        for (Comment currentComment : this.comments) {
+            if (currentComment.Id == comment.Id) {
+                currentComment.Text = comment.Text;
 
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(currentComment);
+
+                return;
+            }
+        }
+
+        resultListener.LoadError(new Exception());
     }
 
     @Override
     public void DeleteComment(String commentId, ProgressBar progressBar, Activity activity, RequestResultListener resultListener) {
+        Comment comment = null;
+        Task task = null;
 
+        for (Comment currentComment : this.comments) {
+            if (comment.Id == commentId) {
+                comment = currentComment;
+
+                break;
+            }
+        }
+
+        for (Task currentTask : this.tasks) {
+            for (Comment currentComment : currentTask.Comments) {
+                if (currentComment.Id == commentId) {
+                    task = currentTask;
+
+                    break;
+                }
+            }
+        }
+
+        if (task == null || comment == null) {
+            resultListener.RequestNotFound();
+            return;
+        }
+
+        this.comments.remove(comment);
+        task.Comments.remove(comment);
+
+        resultListener.RequestCompleted();
+        resultListener.RequestSuccess();
     }
 
     @Override
     public void GetPhotos(String commentId, ProgressBar progressBar, Activity activity, LoadCollectionResultListener<Photo> resultListener) {
+        for (Comment comment : this.comments) {
+            if (comment.Id == commentId) {
+                ArrayList<Photo> photos = new ArrayList<>(comment.Photos);
 
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(photos);
+
+                return;
+            }
+        }
+
+        resultListener.LoadError(new Exception());
     }
 
     @Override
-    public void GetPhoto(String PhotoId, ProgressBar progressBar, Activity activity, LoadItemResultListener<Photo> resultListener) {
+    public void GetPhoto(String photoId, ProgressBar progressBar, Activity activity, LoadItemResultListener<Photo> resultListener) {
+        for (Photo photo : this.photos) {
+            if (photo.Id == photoId) {
+                resultListener.LoadCompleted();
+                resultListener.LoadSuccess(photo);
 
+                return;
+            }
+        }
+
+        resultListener.LoadError(new Exception());
     }
 
     @Override
-    public void DeletePhoto(String PhotoId, ProgressBar progressBar, Activity activity, RequestResultListener resultListener) {
+    public void DeletePhoto(String photoId, ProgressBar progressBar, Activity activity, RequestResultListener resultListener) {
+        Photo photo = null;
+        Comment comment = null;
 
+        for (Photo currentComment : this.photos) {
+            if (photo.Id == photoId) {
+                photo = currentComment;
+
+                break;
+            }
+        }
+
+        for (Comment currentTask : this.comments) {
+            for (Photo currentComment : currentTask.Photos) {
+                if (currentComment.Id == photoId) {
+                    comment = currentTask;
+
+                    break;
+                }
+            }
+        }
+
+        if (comment == null || photo == null) {
+            resultListener.RequestNotFound();
+            return;
+        }
+
+        this.comments.remove(photo);
+        comment.Photos.remove(photo);
+
+        resultListener.RequestCompleted();
+        resultListener.RequestSuccess();
     }
 }
