@@ -4,7 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Children {
-    public Integer Id;
+    public String Id;
     public String FirstName;
     public String LastName;
     public String DateTimeCreated;
@@ -14,7 +14,7 @@ public class Children {
         this.LastName = lastName;
     }
 
-    public Children(Integer id, String firstName, String lastName, String dateTimeCreated) {
+    public Children(String id, String firstName, String lastName, String dateTimeCreated) {
         this.Id = id;
         this.FirstName = firstName;
         this.LastName = lastName;
@@ -26,7 +26,7 @@ public class Children {
             String dateTimeCreated = jsonObject.get("DateTimeCreated") == null ? null : jsonObject.getString("DateTimeCreated");
 
             Children item = new Children(
-                    jsonObject.getInt("Id"),
+                    jsonObject.getString("Id"),
                     jsonObject.getString("FirstName"),
                     jsonObject.getString("LastName"),
                     dateTimeCreated);

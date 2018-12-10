@@ -7,7 +7,7 @@ import org.json.JSONObject;
 import java.util.List;
 
 public class Task {
-    public Integer Id;
+    public String Id;
     public String Name;
     public String Description;
     public String DateTimeCreated;
@@ -15,18 +15,18 @@ public class Task {
     public String DateTimeConfirmed;
 
     // Example to parse https://stackoverflow.com/questions/11994790/parse-time-of-format-hhmmss
-    public String TimeToStart;
-    public String TimeToEnd;
+    public Integer TimeToStart;
+    public Integer TimeToEnd;
 
 
-    public Task(String name, String description, String timeToStart, String timeToEnd) {
+    public Task(String name, String description, Integer timeToStart, Integer timeToEnd) {
         this.Name = name;
         this.Description = description;
         this.TimeToStart = timeToStart;
         this.TimeToEnd = timeToEnd;
     }
 
-    public Task(Integer id, String name, String description, String timeToStart, String timeToEnd, String dateTimeCreated, String dateTimePendingConfirm, String dateTimeConfirmed) {
+    public Task(String id, String name, String description, Integer timeToStart, Integer timeToEnd, String dateTimeCreated, String dateTimePendingConfirm, String dateTimeConfirmed) {
         this.Id = id;
         this.Name = name;
         this.Description = description;
@@ -44,11 +44,11 @@ public class Task {
             String dateTimeConfirmed = jsonObject.get("DateTimeConfirmed") == null ? null : jsonObject.getString("DateTimeConfirmed");
 
             Task item = new Task(
-                    jsonObject.getInt("Id"),
+                    jsonObject.getString("Id"),
                     jsonObject.getString("Name"),
                     jsonObject.getString("Description"),
-                    jsonObject.getString("TimeToStart"),
-                    jsonObject.getString("TimeToEnd"),
+                    jsonObject.getInt("TimeToStart"),
+                    jsonObject.getInt("TimeToEnd"),
                     dateTimeCreated,
                     dateTimePendingConfirm,
                     dateTimeConfirmed);

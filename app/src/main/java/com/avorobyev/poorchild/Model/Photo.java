@@ -4,11 +4,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 public class Photo {
-    public Integer Id;
+    public String Id;
     public String Url;
     public String DateTimeCreated;
 
-    public Photo(Integer id, String url, String dateTimeCreated) {
+    public Photo(String id, String url, String dateTimeCreated) {
         this.Id = id;
         this.Url = url;
         this.DateTimeCreated = dateTimeCreated;
@@ -19,7 +19,7 @@ public class Photo {
             String dateTimeCreated = jsonObject.get("DateTimeCreated") == null ? null : jsonObject.getString("DateTimeCreated");
 
             Photo item = new Photo(
-                    jsonObject.getInt("Id"),
+                    jsonObject.getString("Id"),
                     jsonObject.getString("Url"),
                     dateTimeCreated);
 

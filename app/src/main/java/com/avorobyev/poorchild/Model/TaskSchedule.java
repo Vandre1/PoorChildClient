@@ -9,18 +9,18 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TaskSchedule {
-    public Integer Id;
+    public String Id;
     public String Name;
     public String Description;
     public String DateTimeCreated;
     public List<Integer> DaysOfWeek;
 
     // Example to parse https://stackoverflow.com/questions/11994790/parse-time-of-format-hhmmss
-    public String TimeToStart;
-    public String TimeToEnd;
+    public Integer TimeToStart;
+    public Integer TimeToEnd;
 
 
-    public TaskSchedule(String name, String description, String timeToStart, String timeToEnd) {
+    public TaskSchedule(String name, String description, Integer timeToStart, Integer timeToEnd) {
         this.Name = name;
         this.Description = description;
         this.TimeToStart = timeToStart;
@@ -29,7 +29,7 @@ public class TaskSchedule {
         this.DaysOfWeek = new ArrayList<Integer>();
     }
 
-    public TaskSchedule(Integer id, String name, String description, String timeToStart, String timeToEnd, String dateTimeCreated) {
+    public TaskSchedule(String id, String name, String description, Integer timeToStart, Integer timeToEnd, String dateTimeCreated) {
         this.Id = id;
         this.Name = name;
         this.Description = description;
@@ -45,11 +45,11 @@ public class TaskSchedule {
             String dateTimeCreated = jsonObject.get("DateTimeCreated") == null ? null : jsonObject.getString("DateTimeCreated");
 
             TaskSchedule item = new TaskSchedule(
-                    jsonObject.getInt("Id"),
+                    jsonObject.getString("Id"),
                     jsonObject.getString("Name"),
                     jsonObject.getString("Description"),
-                    jsonObject.getString("TimeToStart"),
-                    jsonObject.getString("TimeToEnd"),
+                    jsonObject.getInt("TimeToStart"),
+                    jsonObject.getInt("TimeToEnd"),
                     dateTimeCreated);
 
             JSONArray daysOfWeek = jsonObject.getJSONArray("DaysOfWeek");

@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Comment {
-    public Integer Id;
+    public String Id;
     public String Text;
     public String DateTimeCreated;
 
@@ -16,10 +16,11 @@ public class Comment {
 
     public Comment(String text) {
         this.Text = text;
+
         this.Photos = new ArrayList<Photo>();
     }
 
-    public Comment(Integer id, String text, String dateTimeCreated) {
+    public Comment(String id, String text, String dateTimeCreated) {
         this.Id = id;
         this.DateTimeCreated = dateTimeCreated;
         this.Text = text;
@@ -32,7 +33,7 @@ public class Comment {
             String dateTimeCreated = jsonObject.get("DateTimeCreated") == null ? null : jsonObject.getString("DateTimeCreated");
 
             Comment comment = new Comment(
-                    jsonObject.getInt("Id"),
+                    jsonObject.getString("Id"),
                     jsonObject.getString("Text"),
                     dateTimeCreated);
 
