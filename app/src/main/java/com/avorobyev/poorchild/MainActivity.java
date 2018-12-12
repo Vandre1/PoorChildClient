@@ -1,29 +1,20 @@
 package com.avorobyev.poorchild;
 
 import android.content.Intent;
-import android.provider.Settings;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ProgressBar;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
-import com.android.volley.Response;
-import com.android.volley.VolleyError;
-import com.android.volley.toolbox.JsonObjectRequest;
-import com.android.volley.toolbox.Volley;
 import com.avorobyev.poorchild.Child.ViewDeviceCodeForAddToParentActivity;
-import com.avorobyev.poorchild.Networking.ServerCommunication;
+import com.avorobyev.poorchild.Dao.Children;
+import com.avorobyev.poorchild.Dao.Parent;
+import com.avorobyev.poorchild.Networking.LoadItemResultListener;
 import com.avorobyev.poorchild.Parent.AddChildDeviceActivity;
 import com.orhanobut.hawk.Hawk;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends BaseActivity {
 
     ProgressBar registerParentProgressBar;
     ProgressBar registerChildProgressBar;
@@ -48,158 +39,66 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void ThisIsChildDeviceClicked(View sender) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Children children = new Children("Василий", "Дубров");
 
-        // Создаем объект регистрации устройства для отправки на сервер и заполняем его
-        JSONObject childDeviceObject = new JSONObject();
+        this.MainRepository.CreateChildren(children, this.registerChildProgressBar, this, new LoadItemResultListener<Children>() {
+            @Override
+            public void LoadSuccess(Children item) {
+                Log.i("REG_CHILD_DEVICE", "Registered.");
 
-        try {
-            childDeviceObject.put("AndroidId", PreferenceHelper.getAndroidId(this));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Не удалось добавить устройство. Перезапустите программу. Если это не поможет, переустановите ее.");
-            errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
-            return;
-        }
+                // Запоминаем Id записи регистрации устройства, а так же указываем, что пользователь зарегестрировался как ChildDevice
+                Hawk.put(PreferenceHelper.ChildDeviceId, item.Id);
+                Hawk.put(PreferenceHelper.ChildDeviceKey, item.RegistrationCode);
+                Hawk.put(PreferenceHelper.IsCurrentDeviceChild, true);
+                Hawk.put(PreferenceHelper.IsCurrentDeviceParent, false);
 
-        // Перед отправкой на сервер отображаем ProgressBar
-        registerChildProgressBar.setVisibility(View.VISIBLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Intent viewDeviceCodeForAddToParentIntent = new Intent(MainActivity.this, ViewDeviceCodeForAddToParentActivity.class);
+                startActivity(viewDeviceCodeForAddToParentIntent);
+            }
 
-        // Формируем Request регистрации
-        JsonObjectRequest registerChildDeviceRequest = new JsonObjectRequest (
-                Request.Method.POST,
-                ServerCommunication.SERVER_URL + "ChildDevices/",
-                childDeviceObject,
-                new Response.Listener<JSONObject>() {
+            @Override
+            public void LoadError(Exception exception) {
+                Log.e("REG_CHILD_DEVICE", exception.toString());
 
-                    /**
-                     * Регистрация завершена
-                     * @param response ChildDevice с сервера
-                     */
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i("REG_CHILD_DEVICE", "Registered.");
+                // Выводим диалог с ошибкой
+                ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Не удалось добавить устройство. Возможно нет доступа в интернет.");
+                errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
+            }
 
-                        // Скрываем ProgressBar
-                        registerChildProgressBar.setVisibility(View.INVISIBLE);
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-                        // Запоминаем Id записи регистрации устройства, а так же указываем, что пользователь зарегестрировался как ChildDevice
-                        try {
-                            Hawk.put(PreferenceHelper.ChildDeviceId, response.getString("Id"));
-                            Hawk.put(PreferenceHelper.ChildDeviceKey, response.getString("DeviceKey"));
-                            Hawk.put(PreferenceHelper.IsCurrentDeviceChild, true);
-                            Hawk.put(PreferenceHelper.IsCurrentDeviceParent, false);
-
-                            Intent viewDeviceCodeForAddToParentIntent = new Intent(MainActivity.this, ViewDeviceCodeForAddToParentActivity.class);
-                            startActivity(viewDeviceCodeForAddToParentIntent);
-
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                            // Выводим диалог с ошибкой
-                            ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Ошибка 1.");
-                            errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-                    /**
-                     * Во время регистрации возникла ошибка
-                     * @param error Детали ошибки
-                     */
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Log.e("REG_CHILD_DEVICE", error.toString());
-
-                        // Скрываем ProgressBar
-                        registerChildProgressBar.setVisibility(View.INVISIBLE);
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-                        // Выводим диалог с ошибкой
-                        ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Не удалось добавить устройство. Возможно нет доступа в интернет.");
-                        errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
-                    }
+            @Override
+            public void LoadCompleted() {
+            }
         });
-
-        requestQueue.add(registerChildDeviceRequest);
     }
 
     public void ThisIsParentDeviceClicked(View sender) {
-        RequestQueue requestQueue = Volley.newRequestQueue(this);
+        Parent parent = new Parent("Марина", "Дуброва");
 
-        // Создаем объект регистрации устройства для отправки на сервер и заполняем его
-        JSONObject parentDeviceObject = new JSONObject();
+        this.MainRepository.CreateParent(parent, this.registerParentProgressBar, this, new LoadItemResultListener<Parent>() {
+            @Override
+            public void LoadSuccess(Parent item) {
+                Log.i("REG_PARENT_DEVICE", "Registered.");
 
-        try {
-            parentDeviceObject.put("AndroidId", PreferenceHelper.getAndroidId(this));
-        } catch (JSONException e) {
-            e.printStackTrace();
-            ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Не удалось добавить устройство. Перезапустите программу. Если это не поможет, переустановите ее.");
-            errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
-            return;
-        }
+                Hawk.put(PreferenceHelper.ParentId, item.Id);
+                Hawk.put(PreferenceHelper.IsCurrentDeviceChild, false);
+                Hawk.put(PreferenceHelper.IsCurrentDeviceParent, true);
 
-        // Перед отправкой на сервер отображаем ProgressBar
-        registerParentProgressBar.setVisibility(View.VISIBLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+                Intent inputCodeIntent = new Intent(MainActivity.this, AddChildDeviceActivity.class);
+                startActivity(inputCodeIntent);
+            }
 
-        // Формируем Request регистрации
-        JsonObjectRequest registerParentDeviceRequest = new JsonObjectRequest (
-                Request.Method.POST,
-                ServerCommunication.SERVER_URL + "ParentDevices/",
-                parentDeviceObject,
-                new Response.Listener<JSONObject>() {
+            @Override
+            public void LoadError(Exception exception) {
+                Log.e("REG_PARENT_DEVICE", exception.toString());
 
-                    /**
-                     * Регистрация завершена
-                     * @param response ParentDevice с сервера
-                     */
-                    @Override
-                    public void onResponse(JSONObject response) {
-                        Log.i("REG_PARENT_DEVICE", "Registered.");
+                // Выводим диалог с ошибкой
+                ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Не удалось добавить устройство. Возможно нет доступа в интернет.");
+                errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
+            }
 
-                        // Скрываем ProgressBar
-                        registerParentProgressBar.setVisibility(View.INVISIBLE);
-                        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-                        // Запоминаем Id записи регистрации устройства, а так же указываем, что пользователь зарегестрировался как ParentDevice
-                        try {
-                            Hawk.put(PreferenceHelper.ParentDeviceId, response.getString("Id"));
-                            Hawk.put(PreferenceHelper.IsCurrentDeviceChild, false);
-                            Hawk.put(PreferenceHelper.IsCurrentDeviceParent, true);
-
-                            Intent inputCodeIntent = new Intent(MainActivity.this, AddChildDeviceActivity.class);
-                            startActivity(inputCodeIntent);
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-
-                            // Выводим диалог с ошибкой
-                            ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Ошибка 1.");
-                            errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
-                        }
-                    }
-                }, new Response.ErrorListener() {
-
-                /**
-                 * Во время регистрации возникла ошибка
-                 * @param error Детали ошибки
-                 */
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Log.e("REG_PARENT_DEVICE", error.toString());
-
-                    // Скрываем ProgressBar
-                    registerParentProgressBar.setVisibility(View.INVISIBLE);
-                    getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-
-                    // Выводим диалог с ошибкой
-                    ErrorDialogFragment errorDialogFragment = ErrorDialogFragment.newInstance("Ошибка", "Не удалось добавить устройство. Возможно нет доступа в интернет.");
-                    errorDialogFragment.show(getSupportFragmentManager(), "ErrorDialogFragment");
-                }
+            @Override
+            public void LoadCompleted() {
+            }
         });
-
-        requestQueue.add(registerParentDeviceRequest);
     }
 }

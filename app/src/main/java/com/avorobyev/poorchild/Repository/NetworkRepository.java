@@ -23,7 +23,8 @@ import org.json.JSONObject;
 import java.text.ParseException;
 import java.util.ArrayList;
 
-public class NetworkRepository implements IRepository {
+/*public class NetworkRepository implements IRepository {
+
 
     @Override
     public void GetChildrens(String parentId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<Children> resultListener) {
@@ -36,10 +37,10 @@ public class NetworkRepository implements IRepository {
                 null,
                 new Response.Listener<JSONArray>() {
 
-                    /**
+                    *//**
                      * Регистрация завершена
                      * @param response ParentDevice с сервера
-                     */
+                     *//*
                     @Override
                     public void onResponse(JSONArray response) {
                         // Скрываем ProgressBar
@@ -68,10 +69,10 @@ public class NetworkRepository implements IRepository {
                     }
                 }, new Response.ErrorListener() {
 
-            /**
+            *//**
              * Во время регистрации возникла ошибка
              * @param error Детали ошибки
-             */
+             *//*
             @Override
             public void onErrorResponse(VolleyError error) {
                 resultListener.LoadWorksError(new NetworkError(error.networkResponse));
@@ -81,4 +82,4 @@ public class NetworkRepository implements IRepository {
 
         requestQueue.add(requestChildrens);
     }
-}
+}*/

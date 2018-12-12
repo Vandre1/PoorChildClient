@@ -14,6 +14,7 @@ public class Children {
     public String Id;
     public String FirstName;
     public String LastName;
+    public String RegistrationCode;
     public Date DateTimeCreated;
 
     public List<Task> Tasks;
@@ -25,10 +26,11 @@ public class Children {
         this.Tasks = new ArrayList<>();
     }
 
-    public Children(String id, String firstName, String lastName, Date dateTimeCreated) {
+    public Children(String id, String firstName, String lastName, String registrationCode, Date dateTimeCreated) {
         this.Id = id;
         this.FirstName = firstName;
         this.LastName = lastName;
+        this.RegistrationCode = registrationCode;
         this.DateTimeCreated = dateTimeCreated;
 
         this.Tasks = new ArrayList<>();
@@ -39,6 +41,6 @@ public class Children {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date dateTimeCreated = simpleDateFormat.parse(mChildren.DateTimeCreated);
 
-        return new Children(mChildren.Id, mChildren.FirstName, mChildren.LastName, dateTimeCreated);
+        return new Children(mChildren.Id, mChildren.FirstName, mChildren.LastName, mChildren.RegistrationCode, dateTimeCreated);
     }
 }

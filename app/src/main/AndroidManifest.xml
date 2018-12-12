@@ -11,7 +11,7 @@
     Allows Glide to monitor connectivity status and restart failed requests if users go from a
     a disconnected to a connected network state.
     -->
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
@@ -44,12 +44,13 @@
 
         <!-- Declaring broadcast receiver for BOOT_COMPLETED event. -->
 
-        <activity android:name=".Child.ListOfWorksActivity"></activity>
-        <activity android:name=".Child.ViewDeviceCodeForAddToParentActivity"></activity>
-        <activity android:name=".Child.WorkDetailsActivity"></activity>
-        <activity android:name=".Parent.AddChildDeviceActivity"></activity>
-        <activity android:name=".Parent.ListOfWorksActivity"></activity>
-        <activity android:name=".Parent.AddWorkActivity"></activity>
+        <activity android:name=".Child.ListOfWorksActivity" />
+        <activity android:name=".Child.ViewDeviceCodeForAddToParentActivity" />
+        <activity android:name=".Child.WorkDetailsActivity" />
+        <activity android:name=".Parent.AddChildDeviceActivity" />
+        <activity android:name=".Parent.ListOfWorksActivity" />
+        <activity android:name=".Parent.AddWorkActivity" />
+        <activity android:name=".Parent.ListOfChildsActivity"></activity>
     </application>
 
 </manifest>
