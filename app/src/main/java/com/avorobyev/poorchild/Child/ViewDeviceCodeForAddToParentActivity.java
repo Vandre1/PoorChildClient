@@ -6,15 +6,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.avorobyev.poorchild.ActionDialogFragment;
 import com.avorobyev.poorchild.ActionDialogResultListener;
 import com.avorobyev.poorchild.PreferenceHelper;
 import com.avorobyev.poorchild.R;
 import com.orhanobut.hawk.Hawk;
-
-import java.util.List;
 
 public class ViewDeviceCodeForAddToParentActivity extends AppCompatActivity implements ActionDialogResultListener {
 
@@ -38,8 +35,8 @@ public class ViewDeviceCodeForAddToParentActivity extends AppCompatActivity impl
     @Override
     public void ActionDialogResult(int resultCode) {
         if (resultCode == Activity.RESULT_OK) {
-            Intent listOfWorksActivity = new Intent(this, ListOfWorksActivity.class);
-            startActivity(listOfWorksActivity);
+            Intent listOfTasksActivity = new Intent(this, ListOfTasksActivity.class);
+            startActivity(listOfTasksActivity);
         } else if (resultCode == Activity.RESULT_CANCELED){
         }
     }

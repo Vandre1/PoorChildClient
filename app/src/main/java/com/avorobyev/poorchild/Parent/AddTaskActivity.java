@@ -5,11 +5,11 @@ import android.os.Bundle;
 
 import com.avorobyev.poorchild.R;
 
-public class AddWorkActivity extends AppCompatActivity {
+public class AddTaskActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.parent_activity_add_work);
+        setContentView(R.layout.parent_activity_add_task);
     }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.ProgressBar;
 
 import com.avorobyev.poorchild.Child.ViewDeviceCodeForAddToParentActivity;
@@ -36,6 +35,17 @@ public class MainActivity extends BaseActivity {
     @Override
     protected void onResume() {
         super.onResume();
+
+        // check device owner if exist and redirect on parent or children main activity
+        if (Boolean.TRUE.equals(Hawk.get(PreferenceHelper.IsCurrentDeviceChild))) {
+            Intent inputIntent = new Intent(MainActivity.this, com.avorobyev.poorchild.Child.ListOfTasksActivity.class);
+            startActivity(inputIntent);
+        }
+
+        if (Boolean.TRUE.equals(Hawk.get(PreferenceHelper.IsCurrentDeviceParent))) {
+            Intent inputIntent = new Intent(MainActivity.this, com.avorobyev.poorchild.Parent.ListOfChildsActivity.class);
+            startActivity(inputIntent);
+        }
     }
 
     public void ThisIsChildDeviceClicked(View sender) {
@@ -79,7 +89,7 @@ public class MainActivity extends BaseActivity {
             public void LoadSuccess(Parent item) {
                 Log.i("REG_PARENT_DEVICE", "Registered.");
 
-                Hawk.put(PreferenceHelper.ParentId, item.Id);
+                Hawk.put(PreferenceHelper.ParentDeviceId, item.Id);
                 Hawk.put(PreferenceHelper.IsCurrentDeviceChild, false);
                 Hawk.put(PreferenceHelper.IsCurrentDeviceParent, true);
 

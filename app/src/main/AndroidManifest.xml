@@ -44,12 +44,12 @@
 
         <!-- Declaring broadcast receiver for BOOT_COMPLETED event. -->
 
-        <activity android:name=".Child.ListOfWorksActivity" />
+        <activity android:name=".Child.ListOfTasksActivity" />
         <activity android:name=".Child.ViewDeviceCodeForAddToParentActivity" />
-        <activity android:name=".Child.WorkDetailsActivity" />
+        <activity android:name=".Child.TaskDetailsActivity" />
         <activity android:name=".Parent.AddChildDeviceActivity" />
-        <activity android:name=".Parent.ListOfWorksActivity" />
-        <activity android:name=".Parent.AddWorkActivity" />
+        <activity android:name=".Parent.ListOfTasksActivity" />
+        <activity android:name=".Parent.AddTaskActivity" />
         <activity android:name=".Parent.ListOfChildsActivity"></activity>
     </application>
 

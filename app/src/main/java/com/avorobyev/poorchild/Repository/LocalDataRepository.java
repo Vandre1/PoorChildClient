@@ -32,6 +32,10 @@ public class LocalDataRepository implements IRepository {
     private static ArrayList<Photo> photos = new ArrayList<>();
     private static ArrayList<Comment> comments = new ArrayList<>();
 
+    public LocalDataRepository() {
+        this.generateData();
+    }
+
     public void generateData() {
         Children children1 = new Children("11111", "Петр", "Воробьев", "011111", new Date());
         Children children2 = new Children("22222", "Иван", "Петров","022222", new Date());
@@ -103,7 +107,7 @@ public class LocalDataRepository implements IRepository {
         Children result = null;
 
         for (Children children : this.childrens) {
-            if (children.Id == childrenId) {
+            if (childrenId.equals(children.Id)) {
                 result = children;
                 break;
             }
@@ -151,7 +155,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Children currentChildren : this.childrens) {
-            if (currentChildren.Id == children.Id) {
+            if (currentChildren.Id.equals(children.Id)) {
                 currentChildren.FirstName = children.FirstName;
                 currentChildren.LastName = children.LastName;
 
@@ -187,7 +191,7 @@ public class LocalDataRepository implements IRepository {
             Parent parent = null;
 
             for (Parent currentParent : this.parents) {
-                if (currentParent.Id == parentId) {
+                if (currentParent.Id.equals(parentId)) {
                     parent = currentParent;
                     break;
                 }
@@ -199,12 +203,12 @@ public class LocalDataRepository implements IRepository {
             progressBar.setVisibility(View.INVISIBLE);
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-            if (childrenCode == "code1") {
+            if (childrenCode.equals("code1")) {
                 Children children = emptyChildrens.get(0);
                 parent.Childrens.add(children);
                 resultListener.RequestSuccess();
 
-            } else if (childrenCode == "code2") {
+            } else if (childrenCode.equals("code2")) {
                 Children children = emptyChildrens.get(1);
                 parent.Childrens.add(children);
                 resultListener.RequestSuccess();
@@ -229,7 +233,7 @@ public class LocalDataRepository implements IRepository {
         Parent result = null;
 
         for (Parent parent : this.parents) {
-            if (parent.Id == parentId) {
+            if (parent.Id.equals(parentId)) {
                 result = parent;
                 break;
             }
@@ -276,7 +280,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Parent currentParent : this.parents) {
-            if (currentParent.Id == parent.Id) {
+            if (currentParent.Id.equals(parent.Id)) {
                 currentParent.FirstName = parent.FirstName;
                 currentParent.LastName = parent.LastName;
 
@@ -311,7 +315,7 @@ public class LocalDataRepository implements IRepository {
         ArrayList<TaskSchedule> result = null;
 
         for (Parent parent : this.parents) {
-            if (parent.Id == parentId) {
+            if (parent.Id.equals(parentId)) {
                 result = new ArrayList<>(parent.TaskSchedules.size());
                 result.addAll(parent.TaskSchedules);
                 break;
@@ -341,7 +345,7 @@ public class LocalDataRepository implements IRepository {
         TaskSchedule result = null;
 
         for (TaskSchedule taskSchedule : this.taskSchedules) {
-            if (taskSchedule.Id == taskScheduleId) {
+            if (taskSchedule.Id.equals(taskScheduleId)) {
                 result = taskSchedule;
                 break;
             }
@@ -370,7 +374,7 @@ public class LocalDataRepository implements IRepository {
         taskSchedule.Id = "00000000-0000-0000-0000-000000000000";
 
         for (Parent parent : this.parents) {
-            if (parent.Id == parentId) {
+            if (parent.Id.equals(parentId)) {
                 this.taskSchedules.add(taskSchedule);
                 parent.TaskSchedules.add(taskSchedule);
 
@@ -403,7 +407,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (TaskSchedule currentTaskSchedule : this.taskSchedules) {
-            if (currentTaskSchedule.Id == taskSchedule.Id) {
+            if (currentTaskSchedule.Id.equals(taskSchedule.Id)) {
                 currentTaskSchedule.DaysOfWeek = taskSchedule.DaysOfWeek;
                 currentTaskSchedule.Description = taskSchedule.Description;
                 currentTaskSchedule.Name = taskSchedule.Name;
@@ -442,7 +446,7 @@ public class LocalDataRepository implements IRepository {
         Parent parent = null;
 
         for (TaskSchedule currentTaskSchedule : this.taskSchedules) {
-            if (currentTaskSchedule.Id == taskScheduleId) {
+            if (currentTaskSchedule.Id.equals(taskScheduleId)) {
                 taskSchedule = currentTaskSchedule;
 
                 break;
@@ -451,7 +455,7 @@ public class LocalDataRepository implements IRepository {
 
         for (Parent currentParent : this.parents) {
             for (TaskSchedule currentTaskSchedule : parent.TaskSchedules) {
-                if (currentTaskSchedule.Id == taskScheduleId) {
+                if (currentTaskSchedule.Id.equals(taskScheduleId)) {
                     parent = currentParent;
 
                     break;
@@ -484,7 +488,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Children children : this.childrens) {
-            if (children.Id == childrenId) {
+            if (childrenId.equals(children.Id)) {
                 ArrayList tasks = new ArrayList(children.Tasks);
 
                 resultListener.LoadCompleted();
@@ -516,7 +520,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Parent parent : this.parents) {
-            if (parent.Id == parentId) {
+            if (parent.Id.equals(parentId)) {
                 ArrayList tasks = new ArrayList(parent.Tasks);
 
                 resultListener.LoadCompleted();
@@ -548,7 +552,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Task task : this.tasks) {
-            if (task.Id == taskId) {
+            if (task.Id.equals(taskId)) {
                 resultListener.LoadCompleted();
 
                 // Скрываем ProgressBar
@@ -578,7 +582,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Task task : this.tasks) {
-            if (task.Id == taskId) {
+            if (task.Id.equals(taskId)) {
                 ArrayList<Comment> comments = new ArrayList<>(task.Comments);
 
                 resultListener.LoadCompleted();
@@ -610,7 +614,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Comment comment : this.comments) {
-            if (comment.Id == commentId) {
+            if (comment.Id.equals(commentId)) {
 
                 resultListener.LoadCompleted();
 
@@ -641,7 +645,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Comment currentComment : this.comments) {
-            if (currentComment.Id == comment.Id) {
+            if (currentComment.Id.equals(comment.Id)) {
                 currentComment.Text = comment.Text;
 
                 resultListener.LoadCompleted();
@@ -676,7 +680,7 @@ public class LocalDataRepository implements IRepository {
         Task task = null;
 
         for (Comment currentComment : this.comments) {
-            if (comment.Id == commentId) {
+            if (comment.Id.equals(commentId)) {
                 comment = currentComment;
 
                 break;
@@ -685,7 +689,7 @@ public class LocalDataRepository implements IRepository {
 
         for (Task currentTask : this.tasks) {
             for (Comment currentComment : currentTask.Comments) {
-                if (currentComment.Id == commentId) {
+                if (currentComment.Id.equals(commentId)) {
                     task = currentTask;
 
                     break;
@@ -714,7 +718,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Comment comment : this.comments) {
-            if (comment.Id == commentId) {
+            if (comment.Id.equals(commentId)) {
                 ArrayList<Photo> photos = new ArrayList<>(comment.Photos);
 
                 resultListener.LoadCompleted();
@@ -746,7 +750,7 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         for (Photo photo : this.photos) {
-            if (photo.Id == photoId) {
+            if (photo.Id.equals(photoId)) {
                 resultListener.LoadCompleted();
 
                 // Скрываем ProgressBar
@@ -779,7 +783,7 @@ public class LocalDataRepository implements IRepository {
         Comment comment = null;
 
         for (Photo currentComment : this.photos) {
-            if (photo.Id == photoId) {
+            if (photo.Id.equals(photoId)) {
                 photo = currentComment;
 
                 break;
@@ -788,7 +792,7 @@ public class LocalDataRepository implements IRepository {
 
         for (Comment currentTask : this.comments) {
             for (Photo currentComment : currentTask.Photos) {
-                if (currentComment.Id == photoId) {
+                if (currentComment.Id.equals(photoId)) {
                     comment = currentTask;
 
                     break;

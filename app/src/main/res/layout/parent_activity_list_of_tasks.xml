@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Parent.ListOfWorksActivity">
+    tools:context=".Parent.ListOfTasksActivity">
 
     <ScrollView
         android:layout_width="match_parent"
@@ -24,7 +24,7 @@
             android:orientation="horizontal">
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/listOfWorksRecyclerView"
+                android:id="@+id/listOfTasksRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 />

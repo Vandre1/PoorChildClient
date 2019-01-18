@@ -4,14 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ProgressBar;
 
 import com.avorobyev.poorchild.BaseActivity;
-import com.avorobyev.poorchild.Child.ViewDeviceCodeForAddToParentActivity;
 import com.avorobyev.poorchild.ErrorDialogFragment;
-import com.avorobyev.poorchild.MainActivity;
 import com.avorobyev.poorchild.Networking.RequestResultListener;
 import com.avorobyev.poorchild.PreferenceHelper;
 import com.avorobyev.poorchild.R;
@@ -41,7 +38,7 @@ public class AddChildDeviceActivity extends BaseActivity {
      */
     public void AddChildrenToParentClicked(View sender) {
         String registrationCode = this.registrationCodeEditText.getText().toString().trim();
-        String parentId = Hawk.get(PreferenceHelper.ParentId);
+        String parentId = Hawk.get(PreferenceHelper.ParentDeviceId);
 
         this.MainRepository.AddChildren(parentId, registrationCode, this.progressBar, this, new RequestResultListener() {
             @Override

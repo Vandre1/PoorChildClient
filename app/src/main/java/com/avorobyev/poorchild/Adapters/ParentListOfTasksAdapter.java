@@ -12,9 +12,9 @@ import com.avorobyev.poorchild.R;
 
 import java.util.ArrayList;
 
-public class ParentListOfWorksAdapter extends RecyclerView.Adapter<ParentListOfWorksAdapter.ViewHolder> {
+public class ParentListOfTasksAdapter extends RecyclerView.Adapter<ParentListOfTasksAdapter.ViewHolder> {
 
-    private ArrayList<Work> listOfWorksDataSet;
+    private ArrayList<Work> listOfTasksDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -26,14 +26,14 @@ public class ParentListOfWorksAdapter extends RecyclerView.Adapter<ParentListOfW
         }
     }
 
-    public ParentListOfWorksAdapter(ArrayList<Work> listOfWorksDataSet) {
-        this.listOfWorksDataSet = listOfWorksDataSet;
+    public ParentListOfTasksAdapter(ArrayList<Work> listOfTasksDataSet) {
+        this.listOfTasksDataSet = listOfTasksDataSet;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        ConstraintLayout viewContainer = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.parent_recyclerview_item_list_of_works, parent, false);
+        ConstraintLayout viewContainer = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.parent_recyclerview_item_list_of_tasks, parent, false);
         ViewHolder vh = new ViewHolder(viewContainer);
         return vh;
     }
@@ -41,7 +41,7 @@ public class ParentListOfWorksAdapter extends RecyclerView.Adapter<ParentListOfW
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Get work for data bind
-        Work workForBind = listOfWorksDataSet.get(position);
+        Work workForBind = listOfTasksDataSet.get(position);
 
         // Get views for databind
         TextView workNameTextView = holder.viewContainer.findViewById(R.id.workNameTextView);
@@ -55,6 +55,6 @@ public class ParentListOfWorksAdapter extends RecyclerView.Adapter<ParentListOfW
 
     @Override
     public int getItemCount() {
-        return listOfWorksDataSet.size();
+        return listOfTasksDataSet.size();
     }
 }

@@ -7,14 +7,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.avorobyev.poorchild.Model.Work;
+import com.avorobyev.poorchild.Dao.Task;
 import com.avorobyev.poorchild.R;
 
 import java.util.ArrayList;
 
-public class ChildListOfWorksAdapter extends RecyclerView.Adapter<ChildListOfWorksAdapter.ViewHolder> {
+public class ChildListOfTasksAdapter extends RecyclerView.Adapter<ChildListOfTasksAdapter.ViewHolder> {
 
-    private ArrayList<Work> listOfWorksDataSet;
+    private ArrayList<Task> listOfTasksDataSet;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -26,35 +26,36 @@ public class ChildListOfWorksAdapter extends RecyclerView.Adapter<ChildListOfWor
         }
     }
 
-    public ChildListOfWorksAdapter(ArrayList<Work> listOfWorksDataSet) {
-        this.listOfWorksDataSet = listOfWorksDataSet;
+    public ChildListOfTasksAdapter(ArrayList<Task> listOfTasksDataSet) {
+        this.listOfTasksDataSet = listOfTasksDataSet;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        ConstraintLayout viewContainer = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.child_recyclerview_item_list_of_works, parent, false);
+        ConstraintLayout viewContainer = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.child_recyclerview_item_list_of_tasks, parent, false);
         ViewHolder vh = new ViewHolder(viewContainer);
+
         return vh;
     }
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Get work for data bind
-        Work workForBind = listOfWorksDataSet.get(position);
+        Task taskForBind = listOfTasksDataSet.get(position);
 
         // Get views for databind
-        TextView workNameTextView = holder.viewContainer.findViewById(R.id.workNameTextView);
-        TextView workDescriptionTextView = holder.viewContainer.findViewById(R.id.workDescriptionTextView);
-        Button workCompletedButton = holder.viewContainer.findViewById(R.id.workCompletedButton);
+        TextView taskNameTextView = holder.viewContainer.findViewById(R.id.workNameTextView);
+        TextView taskDescriptionTextView = holder.viewContainer.findViewById(R.id.workDescriptionTextView);
+        Button taskCompletedButton = holder.viewContainer.findViewById(R.id.workCompletedButton);
 
         // Databind self
-        workNameTextView.setText(workForBind.Name);
-        workDescriptionTextView.setText(workForBind.Description);
+        taskNameTextView.setText(taskForBind.Name);
+        taskDescriptionTextView.setText(taskForBind.Description);
     }
 
     @Override
     public int getItemCount() {
-        return listOfWorksDataSet.size();
+        return listOfTasksDataSet.size();
     }
 }
