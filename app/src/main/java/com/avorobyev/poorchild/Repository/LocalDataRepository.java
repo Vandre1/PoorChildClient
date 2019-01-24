@@ -79,6 +79,14 @@ public class LocalDataRepository implements IRepository {
         parent1.TaskSchedules.add(taskSchedule2);
 
         Task task1 = new Task("11111", "Помыть пол", "Хорошо, так чтобы блестел", 60000, 120000, new Date(), null, null);
+        Task task2 = new Task("22222", "Помыть посуду", "Хорошо, так чтобы блестела", -1, -1, new Date(), null, null);
+        Task task3 = new Task("33333", "Убрать игрушки", "Хорошо, чтобы комар носа не подточил", -1, -1, new Date(), null, null);
+        this.tasks.add(task1);
+        this.tasks.add(task2);
+        this.tasks.add(task3);
+        children1.Tasks.add(task1);
+        children1.Tasks.add(task2);
+        children1.Tasks.add(task3);
     }
 
     @Override

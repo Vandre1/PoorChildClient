@@ -27,6 +27,7 @@ public class MainActivity extends BaseActivity {
         registerParentProgressBar = findViewById(R.id.registerParentProgressBar);
 
         Hawk.init(this).build();
+        StateManager.SetChildState("11111");
 
         // Intent bindIntent = new Intent(this, LockScreenService.class);
         // startService(bindIntent);
