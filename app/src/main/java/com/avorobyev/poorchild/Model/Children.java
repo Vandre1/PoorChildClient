@@ -7,7 +7,6 @@ public class Children {
     public String Id;
     public String FirstName;
     public String LastName;
-    public String RegistrationCode;
     public String DateTimeCreated;
 
     public Children(String firstName, String lastName) {
@@ -15,11 +14,10 @@ public class Children {
         this.LastName = lastName;
     }
 
-    public Children(String id, String firstName, String lastName, String registrationCode, String dateTimeCreated) {
+    public Children(String id, String firstName, String lastName, String dateTimeCreated) {
         this.Id = id;
         this.FirstName = firstName;
         this.LastName = lastName;
-        this.RegistrationCode = registrationCode;
         this.DateTimeCreated = dateTimeCreated;
     }
 
@@ -30,7 +28,6 @@ public class Children {
             Children item = new Children(
                     jsonObject.getString("Id"),
                     jsonObject.getString("FirstName"),
-                    jsonObject.getString("RegistrationCode"),
                     jsonObject.getString("LastName"),
                     dateTimeCreated);
 

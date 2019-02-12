@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
-
 import com.avorobyev.poorchild.Child.ViewDeviceCodeForAddToParentActivity;
 import com.avorobyev.poorchild.Dao.Children;
 import com.avorobyev.poorchild.Dao.Parent;
@@ -27,7 +26,8 @@ public class MainActivity extends BaseActivity {
         registerParentProgressBar = findViewById(R.id.registerParentProgressBar);
 
         Hawk.init(this).build();
-        StateManager.SetChildState("11111");
+        StateManager.ClearState();
+        StateManager.SetParentState("43434");
 
         // Intent bindIntent = new Intent(this, LockScreenService.class);
         // startService(bindIntent);
@@ -59,7 +59,6 @@ public class MainActivity extends BaseActivity {
 
                 // Запоминаем Id записи регистрации устройства, а так же указываем, что пользователь зарегестрировался как ChildDevice
                 Hawk.put(PreferenceHelper.ChildDeviceId, item.Id);
-                Hawk.put(PreferenceHelper.ChildDeviceKey, item.RegistrationCode);
                 Hawk.put(PreferenceHelper.IsCurrentDeviceChild, true);
                 Hawk.put(PreferenceHelper.IsCurrentDeviceParent, false);
 

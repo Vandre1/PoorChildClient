@@ -37,28 +37,30 @@ public class LocalDataRepository implements IRepository {
     }
 
     public void generateData() {
-        Children children1 = new Children("11111", "Петр", "Воробьев", "011111", new Date());
-        Children children2 = new Children("22222", "Иван", "Петров","022222", new Date());
-        Children children3 = new Children("33333", "Сергей", "Иванов","033333", new Date());
-        Children children4 = new Children("44444", "Михаил", "Зуев","044444", new Date());
-        Children children5 = new Children("55555", "Андрей", "Дудин","055555", new Date());
+        Children children1 = new Children("11111", "Петр", "Воробьев", new Date());
+        Children children2 = new Children("22222", "Иван", "Петров", new Date());
+        Children children3 = new Children("33333", "Сергей", "Иванов", new Date());
+        Children children4 = new Children("44444", "Михаил", "Зуев", new Date());
+        Children children5 = new Children("55555", "Андрей", "Дудин", new Date());
         this.childrens.add(children1);
         this.childrens.add(children2);
         this.childrens.add(children3);
         this.childrens.add(children4);
         this.childrens.add(children5);
 
-        Children childrenEmpty1 = new Children("66666", "Фигвам", "Иванович", "066666", new Date());
-        Children childrenEmpty2 = new Children("77777", "Фигагут", "Дубинович","077777", new Date());
+        Children childrenEmpty1 = new Children("66666", "Фигвам", "Иванович", new Date());
+        Children childrenEmpty2 = new Children("77777", "Фигагут", "Дубинович", new Date());
         this.emptyChildrens.add(childrenEmpty1);
         this.emptyChildrens.add(childrenEmpty2);
 
         Parent parent1 = new Parent("21212", "Елена", "Воробьева", new Date());
         Parent parent2 = new Parent("32323", "Ольга", "Зубкова", new Date());
         Parent parent3 = new Parent("43434", "Анна", "Бизюкова", new Date());
+        Parent parent4 = new Parent("54545", "Ольга", "Бизюкова", new Date());
         this.parents.add(parent1);
         this.parents.add(parent2);
         this.parents.add(parent3);
+        this.parents.add(parent4);
         parent1.Childrens.add(children1);
         parent1.Childrens.add(children2);
         parent1.Childrens.add(children3);
@@ -90,11 +92,20 @@ public class LocalDataRepository implements IRepository {
     }
 
     @Override
-    public void GetChildrens(String parentId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<Children> resultListener) {
+    public void GetChildrens(final String parentId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<Children> resultListener) {
 
         // Перед отправкой на сервер отображаем ProgressBar
         progressBar.setVisibility(View.VISIBLE);
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        Parent foundParent = null;
+
+        for (Parent parent : this.parents) {
+            if (parentId.equals(parent.Id)) {
+                foundParent = parent;
+                break;
+            }
+        }
 
         resultListener.LoadCompleted();
 
@@ -102,7 +113,7 @@ public class LocalDataRepository implements IRepository {
         progressBar.setVisibility(View.INVISIBLE);
         activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-        resultListener.LoadSuccess(this.childrens);
+        resultListener.LoadSuccess(new ArrayList<>(foundParent.Childrens));
     }
 
     @Override
@@ -142,7 +153,6 @@ public class LocalDataRepository implements IRepository {
         activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
         children.Id = "00000000-0000-0000-0000-000000000000";
-        children.RegistrationCode = "123456";
 
         this.childrens.add(children);
 
@@ -211,12 +221,12 @@ public class LocalDataRepository implements IRepository {
             progressBar.setVisibility(View.INVISIBLE);
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-            if (childrenCode.equals("code1")) {
+            if (childrenCode.equals("011111")) {
                 Children children = emptyChildrens.get(0);
                 parent.Childrens.add(children);
                 resultListener.RequestSuccess();
 
-            } else if (childrenCode.equals("code2")) {
+            } else if (childrenCode.equals("022222")) {
                 Children children = emptyChildrens.get(1);
                 parent.Childrens.add(children);
                 resultListener.RequestSuccess();
