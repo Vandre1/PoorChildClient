@@ -8,6 +8,13 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.avorobyev.poorchild.Dao.Children;
+import com.avorobyev.poorchild.R;
+
+import java.util.ArrayList;
+
+public class ListOfChildsAdapter extends RecyclerView.Adapter<ListOfChildsAdapter.ViewHolder> {
+
+    public static class ViewHolder extends RecyclerView.ViewHolder {
 
         public ConstraintLayout viewContainer;
 
