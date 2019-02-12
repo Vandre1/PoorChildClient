@@ -1,13 +1,18 @@
 package com.avorobyev.poorchild.Adapters;
 
+import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.avorobyev.poorchild.Dao.Children;
+import com.avorobyev.poorchild.Parent.ListOfChildsActivity;
+import com.avorobyev.poorchild.Parent.ListOfTasksActivity;
 import com.avorobyev.poorchild.R;
 
 import java.util.ArrayList;
@@ -25,9 +30,11 @@ public class ListOfChildsAdapter extends RecyclerView.Adapter<ListOfChildsAdapte
     }
 
     private ArrayList<Children> listOfChildsDataSet;
+    private Context context;
 
-    public ListOfChildsAdapter(ArrayList<Children> listOfChildsDataSet) {
+    public ListOfChildsAdapter(ArrayList<Children> listOfChildsDataSet, Context context) {
         this.listOfChildsDataSet = listOfChildsDataSet;
+        this.context = context;
     }
 
     @Override
@@ -42,12 +49,23 @@ public class ListOfChildsAdapter extends RecyclerView.Adapter<ListOfChildsAdapte
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Get work for data bind
-        Children childrenForBind = listOfChildsDataSet.get(position);
+        final Children childrenForBind = listOfChildsDataSet.get(position);
 
         // Get views for databind
         TextView childNameTextView = holder.viewContainer.findViewById(R.id.childNameTextView);
         TextView activeTasksTextView = holder.viewContainer.findViewById(R.id.activeTasksTextView);
         Button selectChildButton = holder.viewContainer.findViewById(R.id.selectChildButton);
+
+        selectChildButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inputIntent = new Intent(context, com.avorobyev.poorchild.Parent.ListOfTasksActivity.class);
+                String[] childsId = new String[1];
+                childsId[0] = childrenForBind.Id;
+                inputIntent.putExtra(ListOfTasksActivity.CHILDS_ID_FILTER, childsId);
+                context.startActivity(inputIntent);
+            }
+        });
 
         // Databind self
         childNameTextView.setText(childrenForBind.FirstName);

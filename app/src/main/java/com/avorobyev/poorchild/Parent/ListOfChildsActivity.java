@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class ListOfChildsActivity extends BaseActivity {
 
-    protected RecyclerView listOfChildsRecyclerView;
+    private RecyclerView listOfChildsRecyclerView;
     private RecyclerView.Adapter listOfChildsAdapter;
     private RecyclerView.LayoutManager listOfChildsLayoutManager;
     private ProgressBar progressBar;
@@ -62,16 +62,16 @@ public class ListOfChildsActivity extends BaseActivity {
             @Override
             public void LoadSuccess(ArrayList<Children> items) {
                 if (items.isEmpty()) {
-                    addChildEmptyDataButton.setVisibility(View.VISIBLE);
-
                     // Если не скрывать этот элемент, то из за особенностей верстки он перекрывает кнопку addChildEmptyDataButton и не дает на нее нажимать
                     listOfChildsRecyclerView.setVisibility(View.GONE);
+
+                    addChildEmptyDataButton.setVisibility(View.VISIBLE);
                 }
                 else {
                     // Элемент мог быть скрыт в случае если у пользователя в этом экземпляре активити ранее не было ни одного ребенка
                     listOfChildsRecyclerView.setVisibility(View.VISIBLE);
 
-                    listOfChildsAdapter = new ListOfChildsAdapter(items);
+                    listOfChildsAdapter = new ListOfChildsAdapter(items, ListOfChildsActivity.this.getApplicationContext());
                     listOfChildsRecyclerView.setAdapter(listOfChildsAdapter);
                 }
             }
