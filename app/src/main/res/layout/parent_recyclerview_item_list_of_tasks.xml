@@ -20,7 +20,7 @@
                                                  app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/workNameTextView"
+            android:id="@+id/taskScheduleNameTextView"
             style="@style/headerTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -34,7 +34,7 @@
             app:layout_constraintTop_toTopOf="parent"/>
 
         <TextView
-            android:id="@+id/workDescriptionTextView"
+            android:id="@+id/taskScheduleDescriptionTextView"
             style="@style/simpleTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +49,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView10"/>
 
         <Button
-            android:id="@+id/viewWorkButton"
+            android:id="@+id/viewTaskScheduleButton"
             style="@style/Widget.AppCompat.Button.Borderless.Colored"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -57,7 +57,7 @@
             android:text="Просмотреть"
             android:textSize="12sp"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/workDescriptionTextView"/>
+            app:layout_constraintTop_toBottomOf="@+id/taskScheduleDescriptionTextView"/>
 
         <TextView
             android:id="@+id/textView10"
@@ -70,7 +70,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/workNameTextView"/>
+            app:layout_constraintTop_toBottomOf="@+id/taskScheduleNameTextView"/>
 
     </android.support.constraint.ConstraintLayout>
 </android.support.constraint.ConstraintLayout>

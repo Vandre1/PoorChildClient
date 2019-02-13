@@ -72,7 +72,7 @@ public class ListOfTasksActivity extends BaseActivity {
                     // Элемент мог быть скрыт в случае если у пользователя в этом экземпляре активити ранее не было ни одного ребенка
                     listOfTasksRecyclerView.setVisibility(View.VISIBLE);
 
-                    listOfTasksAdapter = new ParentListOfTasksAdapter(items, ListOfChildsActivity.this.getApplicationContext());
+                    listOfTasksAdapter = new ParentListOfTasksAdapter(items, ListOfTasksActivity.this.getApplicationContext());
                     listOfTasksRecyclerView.setAdapter(listOfTasksAdapter);
                 }
             }
