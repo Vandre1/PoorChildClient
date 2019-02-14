@@ -8,10 +8,10 @@ import java.util.List;
 
 public class ChildsFilter extends TaskSchedulesFilter {
 
-    protected ArrayList<Children> childs;
+    protected List<String> childrensId;
 
-    public ChildsFilter(ArrayList<Children> childs) {
-        this.childs = childs;
+    public ChildsFilter(List<String> childrensId) {
+        this.childrensId = childrensId;
     }
 
     @Override
@@ -23,13 +23,13 @@ public class ChildsFilter extends TaskSchedulesFilter {
         for (TaskSchedule taskSchedule : taskSchedules) {
             beginTaskScheduleLoop:
             // перебираем всех детей фильтра
-            for (Children child : this.childs) {
+            for (String currentChildrenId : this.childrensId) {
 
                 // Перебираем идентификаторы детей текущего taskSchedule
                 for (String childrenId : taskSchedule.ChildrensId) {
 
                     // Если ребенок есть в taskSchedule, то добавляем его в результирующий набор
-                    if (childrenId.equals(child.Id)) {
+                    if (childrenId.equals(currentChildrenId)) {
                         result.add(taskSchedule);
 
                         // taskSchedule добавлен в результирующий набор, переходим к следующему taskSchedule

@@ -27,7 +27,7 @@ public class MainActivity extends BaseActivity {
 
         Hawk.init(this).build();
         StateManager.ClearState();
-        StateManager.SetParentState("43434");
+        StateManager.SetParentState("21212");
 
         // Intent bindIntent = new Intent(this, LockScreenService.class);
         // startService(bindIntent);

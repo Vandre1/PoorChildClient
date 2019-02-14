@@ -15,16 +15,13 @@ import com.avorobyev.poorchild.Networking.LoadCollectionResultListener;
 import com.avorobyev.poorchild.Networking.LoadItemResultListener;
 import com.avorobyev.poorchild.Networking.RequestResultListener;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
-import java.util.UUID;
 
 public class LocalDataRepository implements IRepository {
 
-    private static ArrayList<Children> emptyChildrens = new ArrayList<>();
+    private static ArrayList<Children> ChildrensWithoutAnythings = new ArrayList<>();
     private static ArrayList<Children> childrens = new ArrayList<>();
     private static ArrayList<Parent> parents = new ArrayList<>();
     private static ArrayList<TaskSchedule> taskSchedules = new ArrayList<>();
@@ -50,8 +47,8 @@ public class LocalDataRepository implements IRepository {
 
         Children childrenEmpty1 = new Children("66666", "Фигвам", "Иванович", new Date());
         Children childrenEmpty2 = new Children("77777", "Фигагут", "Дубинович", new Date());
-        this.emptyChildrens.add(childrenEmpty1);
-        this.emptyChildrens.add(childrenEmpty2);
+        this.ChildrensWithoutAnythings.add(childrenEmpty1);
+        this.ChildrensWithoutAnythings.add(childrenEmpty2);
 
         Parent parent1 = new Parent("21212", "Елена", "Воробьева", new Date());
         Parent parent2 = new Parent("32323", "Ольга", "Зубкова", new Date());
@@ -70,9 +67,9 @@ public class LocalDataRepository implements IRepository {
         parent3.Childrens.add(children4);
         parent3.Childrens.add(children5);
 
-        TaskSchedule taskSchedule1 = new TaskSchedule("11111", "Помыть пол", "Хорошо, так чтобы блестел", 60000, 120000, new Date());
-        TaskSchedule taskSchedule2 = new TaskSchedule("22222", "Помыть посуду", "Хорошо, так чтобы блестела", -1, -1, new Date());
-        TaskSchedule taskSchedule3 = new TaskSchedule("33333", "Убрать игрушки", "Хорошо, чтобы комар носа не подточил", -1, -1, new Date());
+        TaskSchedule taskSchedule1 = new TaskSchedule("11111", "Помыть пол", "Хорошо, так чтобы блестел", 60000, 120000, new Date(), Arrays.asList(1, 2, 3, 4, 5, 6, 7), Arrays.asList(children2.Id, children3.Id));
+        TaskSchedule taskSchedule2 = new TaskSchedule("22222", "Помыть посуду", "Хорошо, так чтобы блестела", -1, -1, new Date(), Arrays.asList(1, 2, 3, 4, 5, 6, 7), Arrays.asList(children1.Id, children2.Id, children3.Id));
+        TaskSchedule taskSchedule3 = new TaskSchedule("33333", "Убрать игрушки", "Хорошо, чтобы комар носа не подточил", -1, -1, new Date(), Arrays.asList(1, 2, 3, 4, 5, 6, 7), Arrays.asList(children1.Id, children2.Id, children3.Id));
         this.taskSchedules.add(taskSchedule1);
         this.taskSchedules.add(taskSchedule2);
         this.taskSchedules.add(taskSchedule3);
@@ -222,12 +219,12 @@ public class LocalDataRepository implements IRepository {
             activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
             if (childrenCode.equals("011111")) {
-                Children children = emptyChildrens.get(0);
+                Children children = ChildrensWithoutAnythings.get(0);
                 parent.Childrens.add(children);
                 resultListener.RequestSuccess();
 
             } else if (childrenCode.equals("022222")) {
-                Children children = emptyChildrens.get(1);
+                Children children = ChildrensWithoutAnythings.get(1);
                 parent.Childrens.add(children);
                 resultListener.RequestSuccess();
 
@@ -239,6 +236,22 @@ public class LocalDataRepository implements IRepository {
         {
             resultListener.RequestError(e);
         }
+    }
+
+    @Override
+    public void GetdChildrenCode(String childrenId, ProgressBar progressBar, Activity activity, LoadItemResultListener<String> resultListener) {
+
+        // Перед отправкой на сервер отображаем ProgressBar
+        progressBar.setVisibility(View.VISIBLE);
+        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        resultListener.LoadCompleted();
+
+        // Скрываем ProgressBar
+        progressBar.setVisibility(View.INVISIBLE);
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        resultListener.LoadSuccess("128767");
     }
 
     @Override

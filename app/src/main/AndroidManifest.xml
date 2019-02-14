@@ -44,13 +44,13 @@
 
         <!-- Declaring broadcast receiver for BOOT_COMPLETED event. -->
 
-        <activity android:name=".Child.ListOfTasksActivity" />
+        <activity android:name=".Child.ListOfTasksActivity" android:label="Список задач" />
         <activity android:name=".Child.ViewDeviceCodeForAddToParentActivity" />
-        <activity android:name=".Child.TaskDetailsActivity" />
-        <activity android:name=".Parent.AddChildDeviceActivity" />
-        <activity android:name=".Parent.ListOfTasksActivity" />
-        <activity android:name=".Parent.AddTaskActivity" />
-        <activity android:name=".Parent.ListOfChildsActivity"></activity>
+        <activity android:name=".Child.TaskDetailsActivity" android:label="Задача" />
+        <activity android:name=".Parent.AddChildDeviceActivity" android:label="Добавить ребенка" />
+        <activity android:name=".Parent.ListOfTasksActivity" android:label="Список задач" />
+        <activity android:name=".Parent.AddTaskActivity" android:label="Добавить задачу" />
+        <activity android:name=".Parent.ListOfChildsActivity" android:label="Список детей" />
     </application>
 
 </manifest>

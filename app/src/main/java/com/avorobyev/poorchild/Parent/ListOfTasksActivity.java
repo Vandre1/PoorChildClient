@@ -20,11 +20,14 @@ import com.avorobyev.poorchild.ErrorDialogFragment;
 import com.avorobyev.poorchild.Networking.LoadCollectionResultListener;
 import com.avorobyev.poorchild.PreferenceHelper;
 import com.avorobyev.poorchild.R;
+import com.avorobyev.poorchild.Tasks.Filters.ChildsFilter;
 import com.avorobyev.poorchild.Tasks.Filters.TaskSchedulesFilter;
 import com.avorobyev.poorchild.Tasks.TasksScheduleManager;
 import com.orhanobut.hawk.Hawk;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class ListOfTasksActivity extends BaseActivity {
@@ -36,6 +39,8 @@ public class ListOfTasksActivity extends BaseActivity {
     private RecyclerView.LayoutManager listOfTasksLayoutManager;
     private ProgressBar progressBar;
     private Button addTaskEmptyDataButton;
+
+    private List<TaskSchedulesFilter> filters = new ArrayList<TaskSchedulesFilter>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,21 +54,28 @@ public class ListOfTasksActivity extends BaseActivity {
 
         progressBar = findViewById(R.id.progressBar);
 
+        // Получаем фильтры которые были переданны через bundle.
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle != null && bundle.containsKey(CHILDS_ID_FILTER)) {
+            String[] childrensId = bundle.getStringArray(CHILDS_ID_FILTER);
+            List<String> childrensIdForFilter = Arrays.asList(childrensId);
+            filters.add(new ChildsFilter(childrensIdForFilter));
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
         this.DisplayTasks();
     }
 
     public void AddTaskEmptyDataButtonClicked(View sender) {
-//        Intent inputIntent = new Intent(ListOfTasksActivity.this, com.avorobyev.poorchild.Parent.AddChildDeviceActivity.class);
-//        startActivity(inputIntent);
     }
 
     protected List<TaskSchedule> FilterTaskSchedules(List<TaskSchedule> taskSchedules) {
-        Bundle bundle = this.getIntent().getExtras();
-        String[] childrensIdForFilter = bundle.getStringArray(CHILDS_ID_FILTER);
-
-        List<TaskSchedulesFilter> filters = new ArrayList<>()
-
-        TasksScheduleManager.ApplyFilters(taskSchedules, )
+        taskSchedules = TasksScheduleManager.ApplyFilters(taskSchedules, filters);
+        return taskSchedules;
     }
 
     protected void DisplayTasks() {
@@ -74,6 +86,8 @@ public class ListOfTasksActivity extends BaseActivity {
         this.MainRepository.GetTaskSchedules(Hawk.get(PreferenceHelper.ParentDeviceId).toString(), progressBar, this, new LoadCollectionResultListener<TaskSchedule>() {
             @Override
             public void LoadSuccess(ArrayList<TaskSchedule> items) {
+                items = new ArrayList(FilterTaskSchedules(items));
+
                 if (items.isEmpty()) {
                     // Если не скрывать этот элемент, то из за особенностей верстки он перекрывает кнопку addChildEmptyDataButton и не дает на нее нажимать
                     listOfTasksRecyclerView.setVisibility(View.GONE);

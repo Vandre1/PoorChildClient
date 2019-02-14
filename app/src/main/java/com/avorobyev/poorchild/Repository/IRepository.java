@@ -20,6 +20,7 @@ public interface IRepository {
     void CreateChildren(Children children, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Children> resultListener);
     void EditChildren(Children children, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Children> resultListener);
     void AddChildren(String parentId, String childrenCode, final ProgressBar progressBar, final Activity activity, final RequestResultListener resultListener);
+    void GetdChildrenCode(String childrenId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<String> resultListener);
 
     void GetParent(String parentId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Parent> resultListener);
     void CreateParent(Parent parent, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<Parent> resultListener);
