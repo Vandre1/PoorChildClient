@@ -1,6 +1,5 @@
-package com.avorobyev.poorchild.Tasks;
+package com.avorobyev.poorchild.AsyncTasks;
 
-import android.Manifest;
 import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
@@ -12,10 +11,10 @@ import com.avorobyev.poorchild.MainActivity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LockScreenTasks extends AsyncTask<Void, Void, ArrayList<String>> {
+public class LockScreenAsyncTasks extends AsyncTask<Void, Void, ArrayList<String>> {
     private android.content.Context Context;
 
-    public LockScreenTasks(Context context) {
+    public LockScreenAsyncTasks(Context context) {
         this.Context = context;
     }
 

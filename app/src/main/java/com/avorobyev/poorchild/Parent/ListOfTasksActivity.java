@@ -20,9 +20,12 @@ import com.avorobyev.poorchild.ErrorDialogFragment;
 import com.avorobyev.poorchild.Networking.LoadCollectionResultListener;
 import com.avorobyev.poorchild.PreferenceHelper;
 import com.avorobyev.poorchild.R;
+import com.avorobyev.poorchild.Tasks.Filters.TaskSchedulesFilter;
+import com.avorobyev.poorchild.Tasks.TasksScheduleManager;
 import com.orhanobut.hawk.Hawk;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class ListOfTasksActivity extends BaseActivity {
 
@@ -32,14 +35,14 @@ public class ListOfTasksActivity extends BaseActivity {
     private RecyclerView.Adapter listOfTasksAdapter;
     private RecyclerView.LayoutManager listOfTasksLayoutManager;
     private ProgressBar progressBar;
-    private Button addChildEmptyDataButton;
+    private Button addTaskEmptyDataButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.parent_activity_list_of_childs);
+        setContentView(R.layout.parent_activity_list_of_tasks);
 
-        addChildEmptyDataButton = findViewById(R.id.addChildEmptyDataButton);
+        addTaskEmptyDataButton = findViewById(R.id.addTaskEmptyDataButton);
         listOfTasksRecyclerView = findViewById(R.id.listOfTasksRecyclerView);
         listOfTasksLayoutManager = new LinearLayoutManager(this);
         listOfTasksRecyclerView.setLayoutManager(listOfTasksLayoutManager);
@@ -54,6 +57,15 @@ public class ListOfTasksActivity extends BaseActivity {
 //        startActivity(inputIntent);
     }
 
+    protected List<TaskSchedule> FilterTaskSchedules(List<TaskSchedule> taskSchedules) {
+        Bundle bundle = this.getIntent().getExtras();
+        String[] childrensIdForFilter = bundle.getStringArray(CHILDS_ID_FILTER);
+
+        List<TaskSchedulesFilter> filters = new ArrayList<>()
+
+        TasksScheduleManager.ApplyFilters(taskSchedules, )
+    }
+
     protected void DisplayTasks() {
         // Перед отправкой на сервер отображаем ProgressBar
         progressBar.setVisibility(View.VISIBLE);
@@ -66,7 +78,7 @@ public class ListOfTasksActivity extends BaseActivity {
                     // Если не скрывать этот элемент, то из за особенностей верстки он перекрывает кнопку addChildEmptyDataButton и не дает на нее нажимать
                     listOfTasksRecyclerView.setVisibility(View.GONE);
 
-                    addChildEmptyDataButton.setVisibility(View.VISIBLE);
+                    addTaskEmptyDataButton.setVisibility(View.VISIBLE);
                 }
                 else {
                     // Элемент мог быть скрыт в случае если у пользователя в этом экземпляре активити ранее не было ни одного ребенка

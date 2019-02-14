@@ -1,20 +1,17 @@
-package com.avorobyev.poorchild.Tasks;
+package com.avorobyev.poorchild.AsyncTasks;
 
 import android.app.ActivityManager;
 import android.content.Context;
-import android.content.Intent;
 import android.os.AsyncTask;
-
-import com.avorobyev.poorchild.MainActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CloseAppTasks extends AsyncTask<Void, Void, ArrayList<String>> {
+public class CloseAppAsyncTasks extends AsyncTask<Void, Void, ArrayList<String>> {
 
     private Context Context;
 
-    public CloseAppTasks(Context context) {
+    public CloseAppAsyncTasks(Context context) {
         this.Context = context;
     }
 

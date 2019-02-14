@@ -17,6 +17,7 @@ public class TaskSchedule {
     public String Description;
     public Date DateTimeCreated;
     public List<Integer> DaysOfWeek;
+    public List<String> ChildrensId;
 
     // Example to parse https://stackoverflow.com/questions/11994790/parse-time-of-format-hhmmss
     public Integer TimeToStart;
@@ -30,9 +31,10 @@ public class TaskSchedule {
         this.TimeToEnd = timeToEnd;
 
         this.DaysOfWeek = new ArrayList<Integer>();
+        this.ChildrensId = new ArrayList<String>();
     }
 
-    public TaskSchedule(String id, String name, String description, Integer timeToStart, Integer timeToEnd, Date dateTimeCreated) {
+    public TaskSchedule(String id, String name, String description, Integer timeToStart, Integer timeToEnd, Date dateTimeCreated, List<Integer> daysOfWeek, List<String> childrensId) {
         this.Id = id;
         this.Name = name;
         this.Description = description;
@@ -40,7 +42,8 @@ public class TaskSchedule {
         this.TimeToStart = timeToStart;
         this.TimeToEnd = timeToEnd;
 
-        this.DaysOfWeek = new ArrayList<Integer>();
+        this.DaysOfWeek =daysOfWeek;
+        this.ChildrensId = childrensId;
     }
 
     public static TaskSchedule newInstance(com.avorobyev.poorchild.Model.TaskSchedule taskSchedule) throws ParseException {
@@ -48,6 +51,6 @@ public class TaskSchedule {
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
         Date dateTimeCreated = simpleDateFormat.parse(taskSchedule.DateTimeCreated);
 
-        return new TaskSchedule(taskSchedule.Id, taskSchedule.Name, taskSchedule.Description, taskSchedule.TimeToStart, taskSchedule.TimeToEnd, dateTimeCreated);
+        return new TaskSchedule(taskSchedule.Id, taskSchedule.Name, taskSchedule.Description, taskSchedule.TimeToStart, taskSchedule.TimeToEnd, dateTimeCreated, taskSchedule.DaysOfWeek, taskSchedule.ChildrensId);
     }
 }

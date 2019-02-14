@@ -4,10 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 
-import com.avorobyev.poorchild.Tasks.CloseAppTasks;
-import com.avorobyev.poorchild.Tasks.LockScreenTasks;
+import com.avorobyev.poorchild.AsyncTasks.LockScreenAsyncTasks;
 
 public class LockScreenService extends Service {
 
@@ -26,13 +24,13 @@ public class LockScreenService extends Service {
     // RemoteService for a more complete example.
     private final IBinder mBinder = new LockScreenBinder();
 
-    private LockScreenTasks lockScreenTask;
+    private LockScreenAsyncTasks lockScreenTask;
 
     @Override
     public void onCreate() {
         // The service is being created
 
-        lockScreenTask = new LockScreenTasks(this);
+        lockScreenTask = new LockScreenAsyncTasks(this);
         lockScreenTask.execute();
     }
 

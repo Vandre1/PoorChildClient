@@ -14,6 +14,7 @@ public class TaskSchedule {
     public String Description;
     public String DateTimeCreated;
     public List<Integer> DaysOfWeek;
+    public List<String> ChildrensId;
 
     // Example to parse https://stackoverflow.com/questions/11994790/parse-time-of-format-hhmmss
     public Integer TimeToStart;
@@ -27,6 +28,7 @@ public class TaskSchedule {
         this.TimeToEnd = timeToEnd;
 
         this.DaysOfWeek = new ArrayList<Integer>();
+        this.ChildrensId = new ArrayList<String>();
     }
 
     public TaskSchedule(String id, String name, String description, Integer timeToStart, Integer timeToEnd, String dateTimeCreated) {
@@ -38,6 +40,7 @@ public class TaskSchedule {
         this.TimeToEnd = timeToEnd;
 
         this.DaysOfWeek = new ArrayList<Integer>();
+        this.ChildrensId = new ArrayList<String>();
     }
 
     public static TaskSchedule newInstance(JSONObject jsonObject) {
@@ -53,10 +56,15 @@ public class TaskSchedule {
                     dateTimeCreated);
 
             JSONArray daysOfWeek = jsonObject.getJSONArray("DaysOfWeek");
-
             for (Integer i = 0; i < daysOfWeek.length(); i++) {
                 Integer dayOfWeek = daysOfWeek.getInt(i);
                 item.DaysOfWeek.add(dayOfWeek);
+            }
+
+            JSONArray childrensId = jsonObject.getJSONArray("ChildrensId");
+            for (Integer i = 0; i < childrensId.length(); i++) {
+                String childrenId = childrensId.getString(i);
+                item.ChildrensId.add(childrenId);
             }
 
             return item;

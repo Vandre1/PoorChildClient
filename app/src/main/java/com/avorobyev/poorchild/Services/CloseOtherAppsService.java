@@ -4,9 +4,8 @@ import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 
-import com.avorobyev.poorchild.Tasks.CloseAppTasks;
+import com.avorobyev.poorchild.AsyncTasks.CloseAppAsyncTasks;
 
 public class CloseOtherAppsService extends Service {
 
@@ -25,13 +24,13 @@ public class CloseOtherAppsService extends Service {
     // RemoteService for a more complete example.
     private final IBinder mBinder = new CloseOtherAppsBinder();
 
-    private CloseAppTasks closeAppsTask;
+    private CloseAppAsyncTasks closeAppsTask;
 
     @Override
     public void onCreate() {
         // The service is being created
 
-        closeAppsTask = new CloseAppTasks(this);
+        closeAppsTask = new CloseAppAsyncTasks(this);
         closeAppsTask.execute();
     }
 
