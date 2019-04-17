@@ -6,7 +6,6 @@
     <uses-permission android:name="android.permission.KILL_BACKGROUND_PROCESSES" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.INTERNET" />
-
     <!--
     Allows Glide to monitor connectivity status and restart failed requests if users go from a
     a disconnected to a connected network state.
@@ -22,6 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Parent.ViewTaskActivity"></activity>
+
         <service android:name=".Services.CloseOtherAppsService" />
         <service android:name=".Services.LockScreenService" />
 
@@ -40,17 +41,26 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-
-        <!-- Declaring broadcast receiver for BOOT_COMPLETED event. -->
-
-        <activity android:name=".Child.ListOfTasksActivity" android:label="Список задач" />
+        </activity> <!-- Declaring broadcast receiver for BOOT_COMPLETED event. -->
+        <activity
+            android:name=".Child.ListOfTasksActivity"
+            android:label="Список задач" />
         <activity android:name=".Child.ViewDeviceCodeForAddToParentActivity" />
-        <activity android:name=".Child.TaskDetailsActivity" android:label="Задача" />
-        <activity android:name=".Parent.AddChildDeviceActivity" android:label="Добавить ребенка" />
-        <activity android:name=".Parent.ListOfTasksActivity" android:label="Список задач" />
-        <activity android:name=".Parent.AddTaskActivity" android:label="Добавить задачу" />
-        <activity android:name=".Parent.ListOfChildsActivity" android:label="Список детей" />
+        <activity
+            android:name=".Child.TaskDetailsActivity"
+            android:label="Задача" />
+        <activity
+            android:name=".Parent.AddChildDeviceActivity"
+            android:label="Добавить ребенка" />
+        <activity
+            android:name=".Parent.ListOfTasksActivity"
+            android:label="Список задач" />
+        <activity
+            android:name=".Parent.AddTaskActivity"
+            android:label="Добавить задачу" />
+        <activity
+            android:name=".Parent.ListOfChildsActivity"
+            android:label="Список детей" />
     </application>
 
 </manifest>

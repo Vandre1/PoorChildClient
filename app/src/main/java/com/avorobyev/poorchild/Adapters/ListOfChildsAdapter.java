@@ -11,8 +11,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.avorobyev.poorchild.Dao.Children;
-import com.avorobyev.poorchild.Parent.ListOfChildsActivity;
 import com.avorobyev.poorchild.Parent.ListOfTasksActivity;
+import com.avorobyev.poorchild.Parent.ViewTaskActivity;
 import com.avorobyev.poorchild.R;
 
 import java.util.ArrayList;
@@ -59,10 +59,10 @@ public class ListOfChildsAdapter extends RecyclerView.Adapter<ListOfChildsAdapte
         selectChildButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inputIntent = new Intent(context, com.avorobyev.poorchild.Parent.ListOfTasksActivity.class);
+                Intent inputIntent = new Intent(context, ListOfTasksActivity.class);
                 String[] childsId = new String[1];
                 childsId[0] = childrenForBind.Id;
-                inputIntent.putExtra(ListOfTasksActivity.CHILDS_ID_FILTER, childsId);
+                inputIntent.putExtra(ViewTaskActivity.VIEW_TASK_ID, childsId);
                 context.startActivity(inputIntent);
             }
         });

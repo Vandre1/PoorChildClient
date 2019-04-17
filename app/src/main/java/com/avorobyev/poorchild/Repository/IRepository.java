@@ -28,6 +28,7 @@ public interface IRepository {
 
     void GetTaskSchedules(String parentId, final ProgressBar progressBar, final Activity activity, final LoadCollectionResultListener<TaskSchedule> resultListener);
     void GetTaskSchedule(String taskScheduleId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<TaskSchedule> resultListener);
+    void GetTaskScheduleByTask(String taskId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<TaskSchedule> resultListener);
     void CreateTaskSchedule(TaskSchedule taskSchedule, String parentId, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<TaskSchedule> resultListener);
     void EditTaskSchedule(TaskSchedule taskSchedule, final ProgressBar progressBar, final Activity activity, final LoadItemResultListener<TaskSchedule> resultListener);
     void DeleteTaskSchedule(String taskScheduleId, final ProgressBar progressBar, final Activity activity, final RequestResultListener resultListener);

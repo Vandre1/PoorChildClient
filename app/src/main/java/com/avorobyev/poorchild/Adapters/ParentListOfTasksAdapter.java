@@ -1,14 +1,19 @@
 package com.avorobyev.poorchild.Adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.avorobyev.poorchild.Dao.TaskSchedule;
+import com.avorobyev.poorchild.MainActivity;
+import com.avorobyev.poorchild.Parent.ListOfTasksActivity;
+import com.avorobyev.poorchild.Parent.ViewTaskActivity;
 import com.avorobyev.poorchild.R;
 
 import java.util.ArrayList;
@@ -44,7 +49,7 @@ public class ParentListOfTasksAdapter extends RecyclerView.Adapter<ParentListOfT
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Get work for data bind
-        TaskSchedule taskScheduleForBind = listOfTasksDataSet.get(position);
+        final TaskSchedule taskScheduleForBind = listOfTasksDataSet.get(position);
 
         // Get views for databind
         TextView taskScheduleNameTextView = holder.viewContainer.findViewById(R.id.taskScheduleNameTextView);
@@ -54,6 +59,16 @@ public class ParentListOfTasksAdapter extends RecyclerView.Adapter<ParentListOfT
         // Databind self
         taskScheduleNameTextView.setText(taskScheduleForBind.Name);
         taskScheduleDescriptionTextView.setText(taskScheduleForBind.Description);
+
+        viewTaskScheduleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent inputIntent = new Intent(context, com.avorobyev.poorchild.Parent.ViewTaskActivity.class);
+                String taskId = taskScheduleForBind.Id;
+                inputIntent.putExtra(ViewTaskActivity.VIEW_TASK_ID, taskId);
+                context.startActivity(inputIntent);
+            }
+        });
     }
 
     @Override

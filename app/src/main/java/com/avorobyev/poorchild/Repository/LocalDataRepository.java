@@ -396,6 +396,27 @@ public class LocalDataRepository implements IRepository {
     }
 
     @Override
+    public void GetTaskScheduleByTask(String taskId, ProgressBar progressBar, Activity activity, LoadItemResultListener<TaskSchedule> resultListener) {
+        // Перед отправкой на сервер отображаем ProgressBar
+        progressBar.setVisibility(View.VISIBLE);
+        activity.getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        TaskSchedule result = this.taskSchedules.get(0);
+
+        resultListener.LoadCompleted();
+
+        // Скрываем ProgressBar
+        progressBar.setVisibility(View.INVISIBLE);
+        activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+        if (result == null) {
+            resultListener.LoadError(new Exception());
+        } else {
+            resultListener.LoadSuccess(result);
+        }
+    }
+
+    @Override
     public void CreateTaskSchedule(TaskSchedule taskSchedule, String parentId, ProgressBar progressBar, Activity activity, LoadItemResultListener<TaskSchedule> resultListener) {
 
         // Перед отправкой на сервер отображаем ProgressBar
