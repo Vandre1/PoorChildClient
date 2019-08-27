@@ -53,6 +53,7 @@ public class ViewDeviceCodeForAddToParentActivity extends BaseActivity implement
             }
         });
 
+        Hawk.init(this).build();
     }
 
     public void readyButtonClicked(View v) {

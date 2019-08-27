@@ -19,7 +19,7 @@ public class ChildsFilter extends TaskSchedulesFilter {
         taskSchedules = super.Apply(taskSchedules);
         ArrayList<TaskSchedule> result = new ArrayList<TaskSchedule>();
 
-        // Получаем только те taskSchedules у которых ChildrensId содержит id childs фильтра
+        // Получаем только те TaskSchedules у которых ChildrensId содержит id childs фильтра
         for (TaskSchedule taskSchedule : taskSchedules) {
             beginTaskScheduleLoop:
             // перебираем всех детей фильтра

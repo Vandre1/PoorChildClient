@@ -12,6 +12,8 @@ import com.avorobyev.poorchild.Networking.LoadItemResultListener;
 import com.avorobyev.poorchild.Parent.AddChildDeviceActivity;
 import com.orhanobut.hawk.Hawk;
 
+import java.util.Calendar;
+
 public class MainActivity extends BaseActivity {
 
     ProgressBar registerParentProgressBar;
@@ -26,8 +28,7 @@ public class MainActivity extends BaseActivity {
         registerParentProgressBar = findViewById(R.id.registerParentProgressBar);
 
         Hawk.init(this).build();
-        StateManager.ClearState();
-        StateManager.SetParentState("21212");
+        StateManager.GenerateState();
 
         // Intent bindIntent = new Intent(this, LockScreenService.class);
         // startService(bindIntent);

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Parent.ListOfChildsActivity">
+    tools:context=".Parent.ListOfTasksSchedulesActivity">
 
     <ProgressBar
         android:id="@+id/progressBar"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toBottomOf="parent" />
 
     <TextView
-        android:id="@+id/addChildEmptyDataTextView"
+        android:id="@+id/addTaskScheduleEmptyDataTextView"
         style="@style/simpleTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -26,7 +26,7 @@
         android:layout_marginEnd="32dp"
         android:layout_marginBottom="24dp"
         android:textAlignment="center"
-        android:text="На данный момент вы не добавили ни одного устройства ребенка."
+        android:text="На данный момент вы не добавили ни одной задачи ребенку."
         android:visibility="invisible"
         app:layout_constraintBottom_toTopOf="@+id/hCenterGuideline"
         app:layout_constraintEnd_toEndOf="parent"
@@ -40,7 +40,7 @@
         app:layout_constraintGuide_percent="0.5" />
 
     <Button
-        android:id="@+id/addChildEmptyDataButton"
+        android:id="@+id/addTaskScheduleEmptyDataButton"
         style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -49,8 +49,8 @@
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:onClick="AddChildEmptyDataButtonClicked"
-        android:text="Добавить ребенка"
+        android:onClick="AddTaskScheduleEmptyDataButtonClicked"
+        android:text="Добавить задачу"
         android:visibility="invisible"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -72,11 +72,11 @@
         <android.support.constraint.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            tools:context=".Parent.ListOfChildsActivity">
+            tools:context=".Parent.ListOfTasksSchedulesActivity">
 
 
             <android.support.v7.widget.RecyclerView
-                android:id="@+id/listOfChildsRecyclerView"
+                android:id="@+id/listOfTasksSchedulesRecyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:layout_constraintEnd_toEndOf="parent"

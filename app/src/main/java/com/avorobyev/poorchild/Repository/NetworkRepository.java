@@ -47,14 +47,14 @@ import java.util.ArrayList;
                         progressBar.setVisibility(View.INVISIBLE);
                         activity.getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
 
-                        // Перебираем полученные childrens и заполняем коллекцию
-                        ArrayList<Children> childrens = new ArrayList<>();
+                        // Перебираем полученные Childrens и заполняем коллекцию
+                        ArrayList<Children> Childrens = new ArrayList<>();
 
                         try {
                             for(int i = 0; i < response.length(); i++){
                                 JSONObject childenJsonObject = response.getJSONObject(i);
                                 com.avorobyev.poorchild.Model.Children mChildren = com.avorobyev.poorchild.Model.Children.newInstance(childenJsonObject);
-                                childrens.add(Children.newInstance(mChildren));
+                                Childrens.add(Children.newInstance(mChildren));
                             }
                         } catch (JSONException e) {
                             e.printStackTrace();
@@ -64,7 +64,7 @@ import java.util.ArrayList;
                             resultListener.LoadWorksError(e);
                         }
 
-                        resultListener.LoadWorksSuccess(childrens);
+                        resultListener.LoadWorksSuccess(Childrens);
                         resultListener.LoadWorksCompleted();
                     }
                 }, new Response.ErrorListener() {

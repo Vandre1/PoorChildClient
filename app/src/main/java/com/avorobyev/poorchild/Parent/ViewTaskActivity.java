@@ -10,6 +10,7 @@ import com.avorobyev.poorchild.Dao.TaskSchedule;
 import com.avorobyev.poorchild.ErrorDialogFragment;
 import com.avorobyev.poorchild.Networking.LoadItemResultListener;
 import com.avorobyev.poorchild.R;
+import com.orhanobut.hawk.Hawk;
 
 public class ViewTaskActivity extends BaseActivity {
 
@@ -30,6 +31,8 @@ public class ViewTaskActivity extends BaseActivity {
         if (bundle != null && bundle.containsKey(VIEW_TASK_ID)) {
             taskId = bundle.getString(VIEW_TASK_ID);
         }
+
+        Hawk.init(this).build();
     }
 
     @Override

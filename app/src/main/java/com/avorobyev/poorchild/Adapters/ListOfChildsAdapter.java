@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.avorobyev.poorchild.Dao.Children;
+import com.avorobyev.poorchild.Dao.Task;
 import com.avorobyev.poorchild.Parent.ListOfTasksActivity;
 import com.avorobyev.poorchild.Parent.ViewTaskActivity;
 import com.avorobyev.poorchild.R;
@@ -52,17 +53,18 @@ public class ListOfChildsAdapter extends RecyclerView.Adapter<ListOfChildsAdapte
         final Children childrenForBind = listOfChildsDataSet.get(position);
 
         // Get views for databind
+        TextView activeTasksStringTextView = holder.viewContainer.findViewById(R.id.activeTasksStringTextView);
+        TextView allTasksStringTextView = holder.viewContainer.findViewById(R.id.allTasksStringTextView);
+        TextView activeTasksCountTextView = holder.viewContainer.findViewById(R.id.activeTasksCountTextView);
+        TextView allTasksCountTextView = holder.viewContainer.findViewById(R.id.allTasksCountTextView);
         TextView childNameTextView = holder.viewContainer.findViewById(R.id.childNameTextView);
-        TextView activeTasksTextView = holder.viewContainer.findViewById(R.id.activeTasksTextView);
         Button selectChildButton = holder.viewContainer.findViewById(R.id.selectChildButton);
 
         selectChildButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent inputIntent = new Intent(context, ListOfTasksActivity.class);
-                String[] childsId = new String[1];
-                childsId[0] = childrenForBind.Id;
-                inputIntent.putExtra(ViewTaskActivity.VIEW_TASK_ID, childsId);
+                inputIntent.putExtra(ListOfTasksActivity.CHILDREN_ID, childrenForBind.Id);
                 context.startActivity(inputIntent);
             }
         });
@@ -70,8 +72,23 @@ public class ListOfChildsAdapter extends RecyclerView.Adapter<ListOfChildsAdapte
         // Databind self
         childNameTextView.setText(childrenForBind.FirstName);
 
-        // TODO: реализовать подсчет кол-ва активных задач
-        activeTasksTextView.setText("5");
+        int activeTasksCount = 0;
+        int allTasksCount = 0;
+
+        for (Task task : childrenForBind.Tasks) {
+            if (task.DateTimeConfirmed != null) {
+                continue;
+            }
+
+            allTasksCount++;
+
+            if (task.CalculateIsTaskActiveNow()) {
+                activeTasksCount++;
+            }
+        }
+
+        activeTasksCountTextView.setText(String.valueOf(activeTasksCount));
+        allTasksCountTextView.setText(String.valueOf(allTasksCount));
     }
 
     @Override

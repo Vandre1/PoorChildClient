@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                                             xmlns:app="http://schemas.android.com/apk/res-auto"
-                                             xmlns:tools="http://schemas.android.com/tools"
-                                             android:layout_width="match_parent"
-                                             android:layout_height="wrap_content">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/constraintLayout4"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/itemPlaceholder"
@@ -33,30 +34,49 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
-            android:id="@+id/statusTextView"
+            android:id="@+id/activeTasksStringTextView"
+            style="@style/accentStatusTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="16dp"
+            android:layout_marginTop="8dp"
             android:text="Текущие задачи: "
             android:textSize="12sp"
-            style="@style/accentStatusTextView"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/childNameTextView" />
 
         <TextView
-            android:id="@+id/activeTasksTextView"
+            android:id="@+id/allTasksStringTextView"
+            style="@style/accentStatusTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:text="Все задачи: "
+            android:textSize="12sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/activeTasksStringTextView" />
+
+        <TextView
+            android:id="@+id/activeTasksCountTextView"
+            style="@style/accentStatusTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
-            android:layout_marginBottom="16dp"
             android:text="5"
             android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/activeTasksStringTextView"
+            app:layout_constraintTop_toTopOf="@+id/activeTasksStringTextView" />
+
+        <TextView
+            android:id="@+id/allTasksCountTextView"
             style="@style/accentStatusTextView"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/statusTextView"
-            app:layout_constraintTop_toBottomOf="@+id/workNameTextView"
-            app:layout_constraintVertical_bias="0.0" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:text="5"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/allTasksStringTextView"
+            app:layout_constraintTop_toTopOf="@+id/allTasksStringTextView" />
 
         <Button
             android:id="@+id/selectChildButton"

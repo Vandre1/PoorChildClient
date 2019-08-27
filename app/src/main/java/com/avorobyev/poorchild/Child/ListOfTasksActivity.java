@@ -36,6 +36,8 @@ public class ListOfTasksActivity extends BaseActivity {
 
         progressBar = findViewById(R.id.progressBar);
 
+        Hawk.init(this).build();
+
         DisplayTasks();
     }
 

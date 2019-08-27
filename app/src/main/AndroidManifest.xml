@@ -21,7 +21,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Parent.ViewTaskActivity"></activity>
 
         <service android:name=".Services.CloseOtherAppsService" />
         <service android:name=".Services.LockScreenService" />
@@ -61,6 +60,14 @@
         <activity
             android:name=".Parent.ListOfChildsActivity"
             android:label="Список детей" />
+        <activity
+            android:name=".Parent.ListOfTasksSchedulesActivity"
+            android:label="Список задач"
+            />
+        <activity
+            android:name=".Parent.ViewTaskActivity"
+            android:label="Просмотр задачи"
+            />
     </application>
 
 </manifest>

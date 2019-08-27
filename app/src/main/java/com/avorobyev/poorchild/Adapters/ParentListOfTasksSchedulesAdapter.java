@@ -9,13 +9,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
-
-import com.avorobyev.poorchild.Dao.Task;
+import com.avorobyev.poorchild.Dao.TaskSchedule;
 import com.avorobyev.poorchild.Parent.ViewTaskActivity;
 import com.avorobyev.poorchild.R;
+
 import java.util.ArrayList;
 
-public class ParentListOfTasksAdapter extends RecyclerView.Adapter<ParentListOfTasksAdapter.ViewHolder> {
+public class ParentListOfTasksSchedulesAdapter extends RecyclerView.Adapter<ParentListOfTasksSchedulesAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
@@ -27,18 +27,18 @@ public class ParentListOfTasksAdapter extends RecyclerView.Adapter<ParentListOfT
         }
     }
 
-    private ArrayList<Task> listOfTasksDataSet;
+    private ArrayList<TaskSchedule> listOfTasksSchedulesDataSet;
     private Context context;
 
-    public ParentListOfTasksAdapter(ArrayList<Task> listOfTasksDataSet, Context context) {
-        this.listOfTasksDataSet = listOfTasksDataSet;
+    public ParentListOfTasksSchedulesAdapter(ArrayList<TaskSchedule> listOfTasksDataSet, Context context) {
+        this.listOfTasksSchedulesDataSet = listOfTasksDataSet;
         this.context = context;
     }
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         // create a new view
-        ConstraintLayout viewContainer = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.parent_recyclerview_item_list_of_tasks, parent, false);
+        ConstraintLayout viewContainer = (ConstraintLayout) LayoutInflater.from(parent.getContext()).inflate(R.layout.parent_recyclerview_item_list_of_tasks_schedules, parent, false);
         ViewHolder vh = new ViewHolder(viewContainer);
         return vh;
     }
@@ -46,24 +46,22 @@ public class ParentListOfTasksAdapter extends RecyclerView.Adapter<ParentListOfT
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         // Get work for data bind
-        final Task taskForBind = listOfTasksDataSet.get(position);
+        final TaskSchedule taskScheduleForBind = listOfTasksSchedulesDataSet.get(position);
 
         // Get views for databind
         TextView taskScheduleNameTextView = holder.viewContainer.findViewById(R.id.taskScheduleNameTextView);
         TextView taskScheduleDescriptionTextView = holder.viewContainer.findViewById(R.id.taskScheduleDescriptionTextView);
-        TextView taskScheduleStatusTextView = holder.viewContainer.findViewById(R.id.taskScheduleStatusTextView);
         Button viewTaskScheduleButton = holder.viewContainer.findViewById(R.id.viewTaskScheduleButton);
 
         // Databind self
-        taskScheduleNameTextView.setText(taskForBind.Name);
-        taskScheduleDescriptionTextView.setText(taskForBind.Description);
-        taskScheduleStatusTextView.setText(taskForBind.CalculateTaskStatusString());
+        taskScheduleNameTextView.setText(taskScheduleForBind.Name);
+        taskScheduleDescriptionTextView.setText(taskScheduleForBind.Description);
 
         viewTaskScheduleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent inputIntent = new Intent(context, ViewTaskActivity.class);
-                String taskId = taskForBind.Id;
+                Intent inputIntent = new Intent(context, com.avorobyev.poorchild.Parent.ViewTaskActivity.class);
+                String taskId = taskScheduleForBind.Id;
                 inputIntent.putExtra(ViewTaskActivity.VIEW_TASK_ID, taskId);
                 context.startActivity(inputIntent);
             }
@@ -72,6 +70,6 @@ public class ParentListOfTasksAdapter extends RecyclerView.Adapter<ParentListOfT
 
     @Override
     public int getItemCount() {
-        return listOfTasksDataSet.size();
+        return listOfTasksSchedulesDataSet.size();
     }
 }
